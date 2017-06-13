@@ -1,0 +1,1 @@
+$('textarea[name="message"], textarea[name="signature"]').ckeditor();

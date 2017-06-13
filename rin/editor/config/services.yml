@@ -1,0 +1,11 @@
+services:
+    rin.editor.event.rce:
+        class: rin\editor\event\main_listener
+        arguments:
+            - '@dbal.conn'
+            - '@template'
+            - '@config'
+            - '@user'
+            - '%core.root_path%'
+        tags:
+            - { name: event.listener }

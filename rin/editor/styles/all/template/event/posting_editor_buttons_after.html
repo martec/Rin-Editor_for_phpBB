@@ -1,0 +1,11 @@
+<script type="text/javascript">
+	var ids = ['colour_palette', 'format-buttons'],
+			toremove;
+	for (var _i in ids) {
+		if (!ids.hasOwnProperty(_i)) {
+			continue;
+		}
+		toremove = document.getElementById(ids[_i]);
+		toremove.parentNode.removeChild(toremove);
+	}
+</script>

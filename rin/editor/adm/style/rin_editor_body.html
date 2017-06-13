@@ -1,0 +1,94 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_SETTINGS}</h1>
+
+<form id="rin_editor_settings" method="post" action="{U_ACTION}">
+    <fieldset>
+        <dl>
+            <dt><label for="RCE_enb_quick">{L_RCE_ENBQUICK_TITLE}</label><br />
+					<span>{L_RCE_ENBQUICK_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_enb_quick" value="1" <!-- IF RCE_ENB_QUICK -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_enb_quick" value="0" <!-- IF not RCE_ENB_QUICK -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+		<dl>
+			<dt><label for="RCE_language">{L_RCE_LANGUAGE_TITLE}</label><br />
+				<span>{L_RCE_LANGUAGE_DESC}</span></dt>
+			<dd>
+				{RCE_LANG_SELECT}
+			</dd>
+		</dl>
+        <dl>
+            <dt><label for="RCE_mobm_source">{L_RCE_MOBMS_TITLE}</label><br />
+					<span>{L_RCE_MOBMS_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_mobm_source" value="1" <!-- IF RCE_MOBM_SOURCE -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_mobm_source" value="0" <!-- IF not RCE_MOBM_SOURCE -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+        <dl>
+            <dt><label for="RCE_smiley_sc">{L_RCE_SCSMILEY_TITLE}</label><br />
+					<span>{L_RCE_SCSMILEY_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_smiley_sc" value="1" <!-- IF RCE_SMILEY_SC -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_smiley_sc" value="0" <!-- IF not RCE_SMILEY_SC -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+        <dl>
+            <dt><label for="RCE_autosave">{L_RCE_AUTOSAVE_TITLE}</label><br />
+					<span>{L_RCE_AUTOSAVE_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_autosave" value="1" <!-- IF RCE_AUTOSAVE -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_autosave" value="0" <!-- IF not RCE_AUTOSAVE -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+        <dl>
+            <dt><label for="RCE_autosave_message">{L_RCE_AUTOSAVEMSG_TITLE}</label><br />
+					<span>{L_RCE_AUTOSAVEMSG_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_autosave_message" value="1" <!-- IF RCE_AUTOSAVE_MESSAGE -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_autosave_message" value="0" <!-- IF not RCE_AUTOSAVE_MESSAGE -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+		<dl>
+			<dt><label for="RCE_height">{L_RCE_HEIGHT_TITLE}</label><br />
+				<span>{L_RCE_HEIGHT_DESC}</span></dt>
+			<dd><input type="number" name="RCE_height" id="RCE_height" size="10" maxlength="3" value="{RCE_HEIGHT}" /></dd>
+		</dl>
+        <dl>
+            <dt><label for="RCE_quickquote">{L_RCE_QUICKQUOTE_TITLE}</label><br />
+					<span>{L_RCE_QUICKQUOTE_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_quickquote" value="1" <!-- IF RCE_QUICKQUOTE -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_quickquote" value="0" <!-- IF not RCE_QUICKQUOTE -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+        <dl>
+            <dt><label for="RCE_supsment">{L_RCE_SUPSMENT_TITLE}</label><br />
+					<span>{L_RCE_SUPSMENT_DESC}</span</dt>
+            <dd><input type="radio" class="radio" name="RCE_supsment" value="1" <!-- IF RCE_SUPSMENT -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+                <input type="radio" class="radio" name="RCE_supsment" value="0" <!-- IF not RCE_SUPSMENT -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+        </dl>
+		<dl>
+			<dt><label for="RCE_rmv_buttons">{L_RCE_BUTTONS_TITLE}</label><br />
+				<span>{L_RCE_BUTTONS_DESC}</span></dt>
+			<dd><textarea name="RCE_rmv_buttons" id="RCE_rmv_buttons" />{RCE_RMV_BUTTONS}</textarea></dd>
+		</dl>
+		<dl>
+			<dt><label for="RCE_rules">{L_RCE_RULES_TITLE}</label><br />
+				<span>{L_RCE_RULES_DESC}</span></dt>
+			<dd><textarea name="RCE_rules" id="RCE_rules" />{RCE_RULES}</textarea></dd>
+		</dl>
+		<dl>
+			<dt><label for="RCE_rules_des">{L_RCE_RULESDESF_TITLE}</label><br />
+				<span>{L_RCE_RULES_DESC}</span></dt>
+			<dd><textarea name="RCE_rules_des" id="RCE_rules_des" />{RCE_RULES_DES}</textarea></dd>
+		</dl>
+		<dl>
+			<dt><label for="RCE_imgurapi">{L_RCE_IMGUR_TITLE}</label><br />
+				<span>{RCE_IMGUR_DESC}</span></dt>
+			<dd><input type="text" name="RCE_imgurapi" id="RCE_imgurapi" size="50" maxlength="100" value="{RCE_IMGURAPI}" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="RCE_skin">{L_RCE_SKIN_TITLE}</label><br />
+				<span>{RCE_SKIN_DESC}</span></dt>
+			<dd><input type="text" name="RCE_skin" id="RCE_skin" size="50" maxlength="100" value="{RCE_SKIN}" /></dd>
+		</dl>		
+        <p class="submit-buttons">
+            <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+            <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+        </p>
+        {S_FORM_TOKEN}
+    </fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
