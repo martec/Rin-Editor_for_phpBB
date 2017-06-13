@@ -23,7 +23,7 @@
   "extra": {
     "display-name": "Rin Editor for phpBB",
     "soft-require": {
-      "phpbb/phpbb": ">=3.1.5,<3.2.*@dev"
+      "phpbb/phpbb": ">=3.2.0"
     },
     "version-check": {
       "host": "",
