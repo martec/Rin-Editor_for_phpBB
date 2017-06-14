@@ -4,13 +4,13 @@ namespace rin\editor\acp;
 
 class main_module
 {
-    public $u_action;
-    public $tpl_name;
-    public $page_title;
-	
-	/** @var \phpbb\language\language */	
+	public $u_action;
+	public $tpl_name;
+	public $page_title;
+
+	/** @var \phpbb\language\language */
 	protected $language;
-	
+
 	/** @var \phpbb\config\config */
 	protected $config;
 
@@ -28,13 +28,13 @@ class main_module
 
 	/** @var string */
 	protected $php_ext;
-	
-	/** @var string */
-	protected $phpbb_log;		
 
-    public function main($id, $mode)
-    {
-        global $phpbb_root_path, $phpEx, $phpbb_log, $phpbb_container;
+	/** @var string */
+	protected $phpbb_log;
+
+	public function main($id, $mode)
+	{
+		global $phpbb_root_path, $phpEx, $phpbb_log, $phpbb_container;
 
 		$this->language = $phpbb_container->get('language');
 		$this->template = $phpbb_container->get('template');
@@ -42,14 +42,14 @@ class main_module
 		$this->config	= $phpbb_container->get('config');
 		$this->user		= $phpbb_container->get('user');
 		$this->phpbb_root_path = $phpbb_root_path;
-		$this->php_ext  = $phpEx;
+		$this->php_ext	= $phpEx;
 		$this->phpbb_log  = $phpbb_log;
 
-        $this->tpl_name = 'rin_editor_body';
+		$this->tpl_name = 'rin_editor_body';
 		$this->page_title = $this->language->lang('ACP_RCE_TITLE');
 
-        add_form_key('rin_editor_settings');
-		
+		add_form_key('rin_editor_settings');
+
 		$rce_config = array(
 			'RCE_enb_quick'					=> array('default' => 1,					'validation' => array()),
 			'RCE_language'					=> array('default' => '',					'validation' => array()),
@@ -60,13 +60,13 @@ class main_module
 			'RCE_height'					=> array('default' => 250,					'validation' => array('num', false, 0, 500)),
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
 			'RCE_supsment'					=> array('default' => 0,					'validation' => array()),
-			'RCE_rmv_buttons'				=> array('default' => 'Subscript,Superscript',					
+			'RCE_rmv_buttons'				=> array('default' => 'Subscript,Superscript',
 																						'validation' => array('string', false, 0, 255)),
 			'RCE_rules'						=> array('default' => '',					'validation' => array('string', false, 0, 255)),
 			'RCE_rules_des'					=> array('default' => 'flash',				'validation' => array('string', false, 0, 255)),
 			'RCE_imgurapi'					=> array('default' => '',					'validation' => array('string', false, 0, 255)),
 			'RCE_skin'						=> array('default' => 'moonocolor',			'validation' => array('string', false, 0, 255)),
-		);		
+		);
 
 		if ($this->request->is_set_post('submit'))
 		{
@@ -135,10 +135,10 @@ class main_module
 		}
 
 		$lang_opts = array('Default', 'af', 'ar', 'bg', 'bn', 'bs', 'ca', 'cs', 'cy', 'da', 'de', 'el', 'en', 'en-au', 'en-ca', 'en-gb', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr', 'fr-ca', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'id', 'is', 'it', 'ja', 'ka', 'km', 'ko', 'ku', 'lt', 'lv', 'mk', 'mn', 'ms', 'nb', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sr-latn', 'sv', 'th', 'tr', 'tt', 'ug', 'uk', 'vi', 'zh', 'zh-cn');
-        $this->template->assign_vars(array(
-            'RCE_LANG_SELECT' 	=> array_to_options($this->config['RCE_language'], $lang_opts, 'RCE_language'),
-			'RCE_ROOT_PATH' 	=> $this->phpbb_root_path,
-            'U_ACTION'          => $this->u_action,
-        ));
-    }
+		$this->template->assign_vars(array(
+			'RCE_LANG_SELECT'	=> array_to_options($this->config['RCE_language'], $lang_opts, 'RCE_language'),
+			'RCE_ROOT_PATH'		=> $this->phpbb_root_path,
+			'U_ACTION'			=> $this->u_action,
+		));
+	}
 }

@@ -19,7 +19,7 @@ class main_listener implements EventSubscriberInterface
 	protected $db;
 
 	protected $root_path;
-	
+
 	public function htmlspecialchars_uni($message)
 	{
 		$message = preg_replace("#&(?!\#[0-9]+;)#si", "&amp;", $message); // Fix & but allow unicode
@@ -28,7 +28,7 @@ class main_listener implements EventSubscriberInterface
 		$message = str_replace("\"", "&quot;", $message);
 		return $message;
 	}
-	
+
 	/**
 	 * Load common files during user setup
 	 *
@@ -53,7 +53,7 @@ class main_listener implements EventSubscriberInterface
 		$this->db = $db;
 		$this->root_path = $root_path;
 	}
-	
+
 	static public function getSubscribedEvents()
 	{
 		$Default_Event = array(
@@ -67,16 +67,16 @@ class main_listener implements EventSubscriberInterface
 
 		return $Default_Event;
 	}
-	
+
 	public function initialize_rcequickquote($event)
 	{
 		$data = $event['rowset_data'];
-		
+
 		$this->template->assign_block_vars('RCE_POST_ROW',array(
 			'RCE_POST_ID'		=> $data['post_id'],
 			'RCE_USERNAME'		=> $data['username'],
 			'RCE_POST_TIME'		=> $data['post_time'],
-			'RCE_USER_ID'		=> $data['user_id'],							
+			'RCE_USER_ID'		=> $data['user_id'],
 		));
 	}
 
@@ -94,11 +94,11 @@ class main_listener implements EventSubscriberInterface
 			if (intval($row['display_on_posting'])) {
 				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
-			else { 
+			else {
 				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 		}
-		
+
 		$this->template->assign_vars(array(
 			'RCE_LOAD'						=> $event,
 			'RCE_LANGUAGE'					=> $this->config['RCE_language'],
@@ -120,18 +120,18 @@ class main_listener implements EventSubscriberInterface
 			'RCE_MAX_NAME_CARACT'			=> $this->config['max_name_chars'],
 		));
 	}
-	
+
 	public function initialize_rceditor_full()
 	{
 		$this->initialize_rceditor(true);
 	}
-	
+
 	public function initialize_rceditor_quick()
 	{
 		$rceqenb = true;
 		if (!$this->config['RCE_enb_quick']) {
 			 $rceqenb = false;
-		}		
+		}
 		$this->initialize_rceditor($rceqenb);
 	}
 }

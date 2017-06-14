@@ -2,33 +2,33 @@
   "name": "rin/editor",
   "type": "phpbb-extension",
   "description": "Rin Editor for phpBB",
-  "homepage": "https://github.com/martec",
-  "version": "0.1.0",
-  "time": "2017-06-04",
+  "homepage": "https://github.com/martec/Rin-Editor_for_phpBB",
+  "version": "0.0.2",
+  "time": "2017-06-14",
   "license": "GPL-2.0",
   "authors": [
-    {
-      "name": "martec",
-      "email": "",
-      "homepage": "",
-      "role": "owner"
-    }
+	{
+	  "name": "martec",
+	  "email": "",
+	  "homepage": "",
+	  "role": "owner"
+	}
   ],
   "require": {
-    "php": ">=5.3.3"
+	"php": ">=5.3.3"
   },
   "require-dev": {
-    "phpbb/epv": "dev-master"
+	"phpbb/epv": "dev-master"
   },
   "extra": {
-    "display-name": "Rin Editor for phpBB",
-    "soft-require": {
-      "phpbb/phpbb": ">=3.2.0"
-    },
-    "version-check": {
-      "host": "",
-      "directory": "",
-      "filename": ""
-    }
+	"display-name": "Rin Editor for phpBB",
+	"soft-require": {
+	  "phpbb/phpbb": ">=3.2.0"
+	},
+	"version-check": {
+	  "host": "",
+	  "directory": "",
+	  "filename": ""
+	}
   }
 }

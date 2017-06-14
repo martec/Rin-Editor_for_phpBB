@@ -5,7 +5,7 @@ namespace rin\editor\migrations;
 class bbcodedata extends \phpbb\db\migration\migration
 {
 
- 	public function update_data()
+	public function update_data()
 	{
 		return array(
 			array('custom', array(array($this, 'addbbcode'))),
@@ -35,7 +35,7 @@ class bbcodedata extends \phpbb\db\migration\migration
 		$this->db->sql_query($sql);
 
 		$sql = 'SELECT MAX(bbcode_id) AS max_id
-    				FROM ' . $this->table_prefix . 'bbcodes';
+					FROM ' . $this->table_prefix . 'bbcodes';
 		$result = $this->db->sql_query($sql);
 
 		$style_ids = 0;
@@ -193,7 +193,7 @@ class bbcodedata extends \phpbb\db\migration\migration
 				'first_pass_replace' => '[vimeo:$uid]${1}[/vimeo:$uid]',
 				'second_pass_match' => '!\\[vimeo:$uid\\]([a-zA-Z0-9-+.,_ ]+)\\[/vimeo:$uid\\]!s',
 				'second_pass_replace' => '<iframe width="560" height="320" src="//player.vimeo.com/video//${1}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
-			)			
+			)
 		);
 		foreach ($phpbb_bbcodes as $eee) {
 			$sql = 'INSERT INTO ' . $this->table_prefix . 'bbcodes' . $this->db->sql_build_array('INSERT', $eee);
