@@ -5,7 +5,6 @@
 		if (!ids.hasOwnProperty(_i)) {
 			continue;
 		}
-		toremove = document.getElementById(ids[_i]);
-		toremove.parentNode.removeChild(toremove);
+		toremove = document.getElementById(ids[_i]).style.display = "none";
 	}
 </script>

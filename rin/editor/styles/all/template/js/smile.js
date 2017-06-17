@@ -1,6 +1,1 @@
-	insert_text = function(cod, spaces) {
-		if (spaces) {
-			cod = ' ' + cod + ' ';
-		}	
-		opener.MyBBEditor.insertText(cod);
-	}
+﻿insert_text=function(a,b){b&&(a=" "+a+" ");opener.MyBBEditor.insertText(a)};
