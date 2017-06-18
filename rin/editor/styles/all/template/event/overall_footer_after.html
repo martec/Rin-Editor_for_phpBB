@@ -76,5 +76,5 @@ postuid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USER_ID}"<!-- IF !RCE_P
 <!-- INCLUDEJS @rin_editor/js/ckeditor.js -->
 <!-- INCLUDEJS @rin_editor/js/adapters/jquery.js -->
 <!-- INCLUDEJS @rin_editor/js/rck.init.js -->
-<!-- IF RCE_SUP_SMENT --><!-- INCLUDEJS @rin_editor/js/automention.js --><!-- ENDIF -->
+<!-- IF RCE_SUP_SMENT and UA_AJAX_MENTION_URL --><!-- INCLUDEJS @rin_editor/js/automention.js --><!-- ENDIF -->
 <!-- ENDIF -->
