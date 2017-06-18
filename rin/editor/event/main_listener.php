@@ -58,10 +58,10 @@ class main_listener implements EventSubscriberInterface
 	{
 		$Default_Event = array(
 			'core.user_setup' => 'load_language_on_setup',
-			'core.generate_smilies_after' => 'initialize_rceditor_full',
-			'core.ucp_pm_compose_modify_parse_before' => 'initialize_rceditor_full',
-			'core.ucp_profile_modify_signature' => 'initialize_rceditor_full',
-			'core.viewtopic_modify_page_title' => 'initialize_rceditor_quick',
+			'core.generate_smilies_after' => 'initialize_rceditor',
+			'core.ucp_pm_compose_modify_parse_before' => 'initialize_rceditor',
+			'core.ucp_profile_modify_signature' => 'initialize_rceditor',
+			'core.viewtopic_modify_page_title' => 'initialize_rceditor',
 			'core.viewtopic_post_rowset_data' => 'initialize_rcequickquote',
 		);
 
@@ -80,8 +80,12 @@ class main_listener implements EventSubscriberInterface
 		));
 	}
 
-	public function initialize_rceditor($event)
+	public function initialize_rceditor($event, $eventname)
 	{
+		$rceqenb = true;
+		if ((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') {
+			 $rceqenb = false;
+		}
 		// We need to get all smilies with url and code
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
@@ -99,8 +103,14 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		$fontsizes = array(50, 85, 100, 150, 200);
+
+		foreach ($fontsizes as &$fontsize) {
+			$this->template->assign_block_vars('RCE_FONT_SIZES', array('size' => $fontsize));
+		}
+
 		$this->template->assign_vars(array(
-			'RCE_LOAD'						=> $event,
+			'RCE_LOAD'						=> $rceqenb,
 			'RCE_LANGUAGE'					=> $this->config['RCE_language'],
 			'RCE_MOBM_SOURCE'				=> $this->config['RCE_mobm_source'],
 			'RCE_SMILEY_SC'					=> $this->config['RCE_smiley_sc'],
@@ -118,20 +128,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_SMILEY_PATH'				=> $this->root_path . $this->config['smilies_path'] . '/',
 			'RCE_SMILEY'					=> $this->config['allow_smilies'],
 			'RCE_MAX_NAME_CARACT'			=> $this->config['max_name_chars'],
+			'RCE_MAX_FONT_SIZE'				=> $this->config['max_post_font_size'],
 		));
-	}
-
-	public function initialize_rceditor_full()
-	{
-		$this->initialize_rceditor(true);
-	}
-
-	public function initialize_rceditor_quick()
-	{
-		$rceqenb = true;
-		if (!$this->config['RCE_enb_quick']) {
-			 $rceqenb = false;
-		}
-		$this->initialize_rceditor($rceqenb);
 	}
 }
