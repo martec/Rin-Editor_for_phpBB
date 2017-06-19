@@ -2,6 +2,8 @@ services:
     rin.editor.event.rce:
         class: rin\editor\event\main_listener
         arguments:
+            - '@auth'
+            - '@request'
             - '@dbal.conn'
             - '@template'
             - '@config'

@@ -1,0 +1,1 @@
+﻿document.getElementById("format-buttons").style.display="none";

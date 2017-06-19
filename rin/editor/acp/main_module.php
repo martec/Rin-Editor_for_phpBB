@@ -109,7 +109,7 @@ class main_module
 				// Add an entry into the log table
 				$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'RCE CONFIG UPDATE', false, array($this->user->data['username']));
 
-				trigger_error($this->language->lang('RCE_SETTING_SAVED') . adm_back_link($u_action));
+				trigger_error($this->language->lang('RCE_SETTING_SAVED') . adm_back_link($this->u_action));
 			}
 
 			// Replace "error" strings with their real, localised form

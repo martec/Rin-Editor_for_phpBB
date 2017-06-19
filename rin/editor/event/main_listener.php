@@ -9,6 +9,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class main_listener implements EventSubscriberInterface
 {
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+	/** @var \phpbb\request\request_interface */
+	protected $request;	
 	/** @var \phpbb\template\template */
 	protected $template;
 	/** @var \phpbb\user */
@@ -45,8 +49,10 @@ class main_listener implements EventSubscriberInterface
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
-	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\user $user, $root_path)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\request\request_interface $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\config\config $config, \phpbb\user $user, $root_path)
 	{
+		$this->auth = $auth;
+		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
 		$this->config = $config;
@@ -58,9 +64,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		$Default_Event = array(
 			'core.user_setup' => 'load_language_on_setup',
-			'core.generate_smilies_after' => 'initialize_rceditor',
-			'core.ucp_pm_compose_modify_parse_before' => 'initialize_rceditor',
-			'core.ucp_profile_modify_signature' => 'initialize_rceditor',
+			'core.display_custom_bbcodes' => 'initialize_rceditor',
 			'core.viewtopic_modify_page_title' => 'initialize_rceditor',
 			'core.viewtopic_post_rowset_data' => 'initialize_rcequickquote',
 		);
@@ -83,9 +87,25 @@ class main_listener implements EventSubscriberInterface
 	public function initialize_rceditor($event, $eventname)
 	{
 		$rceqenb = true;
+		$bbcode_status = $smilies_status = $img_status = $url_status = $flash_status = $quote_status = '';
+		$quick_quote_page = false;
+
 		if ((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') {
 			 $rceqenb = false;
+			 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
+			 return;
 		}
+
+		if ($eventname == 'core.viewtopic_modify_page_title') {
+			$bbcode_status = ($this->config['allow_bbcode'] && $this->auth->acl_get('f_bbcode', $this->request->variable('f', 0))) ? true : false;
+			$smilies_status	= ($this->config['allow_smilies'] && $this->auth->acl_get('f_smilies', $this->request->variable('f', 0))) ? true : false;
+			$img_status	= ($bbcode_status && $this->auth->acl_get('f_img', $this->request->variable('f', 0))) ? true : false;
+			$url_status	= ($this->config['allow_post_links']) ? true : false;
+			$flash_status = ($bbcode_status && $this->auth->acl_get('f_flash', $this->request->variable('f', 0)) && $this->config['allow_post_flash']) ? true : false;
+			$quote_status = true;
+			$quick_quote_page = true;
+		}
+
 		// We need to get all smilies with url and code
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
@@ -111,6 +131,7 @@ class main_listener implements EventSubscriberInterface
 
 		$this->template->assign_vars(array(
 			'RCE_LOAD'						=> $rceqenb,
+			'RCE_QQ_PAGE'					=> $quick_quote_page,
 			'RCE_LANGUAGE'					=> $this->config['RCE_language'],
 			'RCE_MOBM_SOURCE'				=> $this->config['RCE_mobm_source'],
 			'RCE_SMILEY_SC'					=> $this->config['RCE_smiley_sc'],
@@ -126,9 +147,14 @@ class main_listener implements EventSubscriberInterface
 			'RCE_SUP_SMENT'					=> $this->config['RCE_supsment'],
 			'RCE_ROOT_PATH'					=> $this->root_path,
 			'RCE_SMILEY_PATH'				=> $this->root_path . $this->config['smilies_path'] . '/',
-			'RCE_SMILEY'					=> $this->config['allow_smilies'],
 			'RCE_MAX_NAME_CARACT'			=> $this->config['max_name_chars'],
 			'RCE_MAX_FONT_SIZE'				=> $this->config['max_post_font_size'],
+			'RCE_BBCODE_STATUS'				=> $bbcode_status,
+			'RCE_SMILIES_STATUS'			=> $smilies_status,
+			'RCE_IMG_STATUS'				=> $img_status,
+			'RCE_URL_STATUS'				=> $url_status,
+			'RCE_FLASH_STATUS'				=> $flash_status,
+			'RCE_QUOTE_STATUS'				=> $quote_status,
 		));
 	}
 }

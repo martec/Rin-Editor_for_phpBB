@@ -1,0 +1,80 @@
+<!-- IF RCE_LOAD and RCE_BBCODE_STATUS -->
+<script type="text/javascript">
+RinEditor = {
+	"Video URL:": "{{ lang('RCE_VIDEO_URL') }}",
+	"Video Type:": "{{ lang('RCE_VIDEO_TYPE') }}",
+	"Insert": "{{ lang('RCE_INSERT') }}",
+	"Description (optional):": "{{ lang('RCE_DESCRIPTION_OPTIONAL') }}",
+	"Enter the image URL:": "{{ lang('RCE_ENTER_THE_IMAGE_URL') }}",
+	"Enter URL:": "{{ lang('RCE_ENTER_URL') }}",
+	"Dailymotion": "{{ lang('RCE_DAILYMOTION') }}",
+	"Vimeo": "{{ lang('RCE_VIMEO') }}",
+	"Youtube": "{{ lang('RCE_YOUTUBE') }}",
+	"Insert a video": "{{ lang('RCE_INSERT_A_VIDEO') }}",
+	"More": "{{ lang('RCE_MORE') }}",
+	"Restore": "{{ lang('RCE_RESTORE') }}",
+	"Quickquote": "{{ lang('RCE_QUICK_QUOTE') }}"
+};
+rce_sty = JSON.parse(localStorage.getItem('rce_mode'));
+if (!rce_sty) {
+	rce_sty = {};
+	rce_sty['mode'] = 'wysiwyg';
+	localStorage.setItem('rce_mode', JSON.stringify(rce_sty));
+}
+var dropdownsmiliesurl = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.url}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
+dropdownsmiliesdes = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.code}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
+dropdownsmiliesname = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.name}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
+dropdownsmiliesurlmore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.url}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
+dropdownsmiliesdesmore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.code}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
+dropdownsmiliesnamemore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.name}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
+smileydirectory = "{RCE_SMILEY_PATH}",
+rinsmileysc = '{RCE_SMILEY_SC}',
+rinstartupmode = rce_sty['mode'],
+rinmobsms = '{RCE_MOBM_SOURCE}',
+rinlanguage = '{RCE_LANGUAGE}',
+rinheight = '{RCE_HEIGHT}',
+rinrmvbut = '<!-- IF !RCE_FLASH_STATUS -->flash,<!-- ENDIF -->{RCE_RMV_BUTTONS}',
+extrabut = '{RCE_RULES}',
+extrabutdesc = '{RCE_RULES_DES}',
+rinautosave = '<!-- IF !RCE_URL_STATUS -->link,<!-- ENDIF --><!-- IF !RCE_IMG_STATUS -->image,<!-- ENDIF --><!-- IF !RCE_QUOTE_STATUS -->blockquote,<!-- ENDIF --><!-- IF !RCE_AUTOSAVE -->autosave,<!-- ENDIF --><!-- IF !RCE_SMILIES_STATUS -->smiley,emojione<!-- ENDIF -->',
+rinautosavemsg = '{RCE_AUTOSAVE_MESSAGE}',
+rinskin = '{RCE_SKIN}',
+rootpath = "{RCE_ROOT_PATH}",
+rinimgur = '{RCE_IMGURAPI}',
+maxncharc = '{RCE_MAX_NAME_CARACT}',
+maxfontsize = '{RCE_MAX_FONT_SIZE}',
+fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
+postid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
+postuser = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USERNAME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
+postdate = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_TIME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
+postuid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USER_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->];
+
+($.fn.on || $.fn.live).call($(document), 'click', 'a[href*="mode=edit"]', function () {
+	var url = $(this).attr('href');
+	var n = url.lastIndexOf('=');
+	var pid = url.substring(n + 1);
+	$( document ).ajaxComplete(function() {
+		$('#quickeditbox form fieldset div textarea').attr( 'id', 'message_'+pid );
+		setTimeout(function() {
+			CKEDITOR.replace( 'message_'+pid );
+			if (CKEDITOR.instances['message_'+pid]) {
+				setTimeout(function() {
+					CKEDITOR.instances['message_'+pid].focus();
+				},1000);
+			}
+			offset = $('#message_'+pid).offset().top - 60;
+			setTimeout(function() {
+				$('html, body').animate({
+					scrollTop: offset
+				}, 700);
+			},200);
+		},400);
+	});
+});
+</script>
+<!-- INCLUDEJS @rin_editor/js/rineditor.js -->
+<!-- INCLUDEJS @rin_editor/js/ckeditor.js -->
+<!-- INCLUDEJS @rin_editor/js/adapters/jquery.js -->
+<!-- INCLUDEJS @rin_editor/js/rck.init.js -->
+<!-- IF RCE_SUP_SMENT and UA_AJAX_MENTION_URL --><!-- INCLUDEJS @rin_editor/js/automention.js --><!-- ENDIF -->
+<!-- ENDIF -->
