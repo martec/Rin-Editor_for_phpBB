@@ -33,16 +33,19 @@ rinstartupmode = rce_sty['mode'],
 rinmobsms = '{RCE_MOBM_SOURCE}',
 rinlanguage = '{RCE_LANGUAGE}',
 rinheight = '{RCE_HEIGHT}',
-rinrmvbut = '<!-- IF !RCE_FLASH_STATUS -->flash,<!-- ENDIF -->{RCE_RMV_BUTTONS}',
-extrabut = '{RCE_RULES}',
-extrabutdesc = '{RCE_RULES_DES}',
-rinautosave = '<!-- IF !RCE_URL_STATUS -->link,<!-- ENDIF --><!-- IF !RCE_IMG_STATUS -->image,<!-- ENDIF --><!-- IF !RCE_QUOTE_STATUS -->blockquote,<!-- ENDIF --><!-- IF !RCE_AUTOSAVE -->autosave,<!-- ENDIF --><!-- IF !RCE_SMILIES_STATUS -->smiley,emojione<!-- ENDIF -->',
+rinrmvbut = '<!-- BEGIN RCE_RMV_BUTTONS -->{RCE_RMV_BUTTONS.rule}<!-- IF !RCE_RMV_BUTTONS.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RMV_BUTTONS -->',
+extrabut = '<!-- BEGIN RCE_RULES -->{RCE_RULES.rule}<!-- IF !RCE_RULES.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RULES -->',
+extrabutdesc = '<!-- IF RCE_FLASH_STATUS -->flash<!-- ENDIF --><!-- BEGIN RCE_RULES_DES --><!-- IF !RCE_RULES_DES.S_FIRST_ROW or RCE_FLASH_STATUS -->,<!-- ENDIF -->{RCE_RULES_DES.rule}<!-- IF !RCE_RULES_DES.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RULES_DES -->',
+rinautosave = '<!-- IF !RCE_URL_STATUS -->link,<!-- ENDIF --><!-- IF !RCE_IMG_STATUS -->image,<!-- ENDIF --><!-- IF !RCE_QUOTE_STATUS -->blockquote,<!-- ENDIF --><!-- IF !RCE_AUTOSAVE -->autosave,<!-- ENDIF --><!-- IF !RCE_SMILIES_STATUS -->smiley,emojione,<!-- ENDIF --><!-- BEGIN RCE_RMV_PLUGIN -->{RCE_RMV_PLUGIN.rule}<!-- IF !RCE_RMV_PLUGIN.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RMV_PLUGIN -->',
 rinautosavemsg = '{RCE_AUTOSAVE_MESSAGE}',
 rinskin = '{RCE_SKIN}',
 rootpath = "{RCE_ROOT_PATH}",
 rinimgur = '{RCE_IMGURAPI}',
 maxncharc = '{RCE_MAX_NAME_CARACT}',
 maxfontsize = '{RCE_MAX_FONT_SIZE}',
+desnopop = '{RCE_DES_NOPOP}',
+partialmode = '{RCE_PARTIAL}',
+supext = '{RCE_SUP_EXT}',
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
 postid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
 postuser = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USERNAME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
@@ -51,8 +54,16 @@ postuid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USER_ID}"<!-- IF !RCE_P
 
 ($.fn.on || $.fn.live).call($(document), 'click', 'a[href*="mode=edit"]', function () {
 	var url = $(this).attr('href');
-	var n = url.lastIndexOf('=');
-	var pid = url.substring(n + 1);
+	if (url.indexOf('sid') == -1) {
+		var n = url.lastIndexOf('p=');
+		var pid = url.substring(n + 2);	
+	}
+	else {
+		var n = url.lastIndexOf('&sid');
+		var url2 = url.slice(0,n);
+		var n = url2.lastIndexOf('p=')
+		var pid = url2.substring(n + 2);
+	}
 	$( document ).ajaxComplete(function() {
 		$('#quickeditbox form fieldset div textarea').attr( 'id', 'message_'+pid );
 		setTimeout(function() {

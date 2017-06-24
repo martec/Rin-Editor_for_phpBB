@@ -1,0 +1,1 @@
+﻿($.fn.on||$.fn.live).call($(document),"change","#bbcode",function(){$(".permbb").hide();$("#"+this.value+"").show()});$(document).one("ready",function(){$("#"+$("#bbcode").find("option:first-child").val()+"").show()});

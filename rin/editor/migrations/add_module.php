@@ -36,11 +36,13 @@ class add_module extends \phpbb\db\migration\migration
 			array('config.add', array('RCE_quickquote', 1)),
 			array('config.add', array('RCE_supsment', 0)),
 			array('config.add', array('RCE_height', 250)),
-			array('config.add', array('RCE_rmv_buttons', 'Subscript,Superscript')),
-			array('config.add', array('RCE_rules', '')),
-			array('config.add', array('RCE_rules_des', 'flash')),
+			array('config.add', array('RCE_supext', 0)),
+			array('config.add', array('RCE_desnopop', 0)),
+			array('config.add', array('RCE_partial', 1)),
+			array('config.add', array('RCE_cache', 0)),
 			array('config.add', array('RCE_imgurapi', '')),
 			array('config.add', array('RCE_skin', 'moonocolor')),
+			array('config_text.add', array('RCE_bbcode_permission', '')),
 
 			// Add a parent module (ACP_DEMO_TITLE) to the Extensions tab (ACP_CAT_DOT_MODS)
 			array('module.add', array(

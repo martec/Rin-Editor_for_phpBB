@@ -18,6 +18,20 @@
 			</dd>
 		</dl>
 		<dl>
+			<dt><label>{L_RCE_BBCODE_TITLE}</label><br />
+				<span>{L_RCE_BBCODE_DESC}</span></dt>
+			<dd>
+				{RCE_BBCODE_OPTION}
+			</dd>
+		</dl>
+		<!-- BEGIN RCE_BBCODE_TAGS --><dl class="permbb" id="{RCE_BBCODE_TAGS.bbcode_name_trigger}" style="display:none">
+			<dt><label for="{RCE_BBCODE_TAGS.bbcode_name}">{L_RCE_PBBCODE_TITLE}{RCE_BBCODE_TAGS.bbcode_name_trigger}</label><br />
+				<span>{L_RCE_PBBCODE_DESC}</span></dt>
+			<dd>
+				{RCE_BBCODE_TAGS.group}
+			</dd>
+		</dl><!-- END RCE_BBCODE_TAGS -->
+		<dl>
 			<dt><label for="RCE_mobm_source">{L_RCE_MOBMS_TITLE}</label><br />
 					<span>{L_RCE_MOBMS_DESC}</span</dt>
 			<dd><input type="radio" class="radio" name="RCE_mobm_source" value="1" <!-- IF RCE_MOBM_SOURCE -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
@@ -59,19 +73,27 @@
 				<input type="radio" class="radio" name="RCE_supsment" value="0" <!-- IF not RCE_SUPSMENT -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
 		</dl>
 		<dl>
-			<dt><label for="RCE_rmv_buttons">{L_RCE_BUTTONS_TITLE}</label><br />
-				<span>{L_RCE_BUTTONS_DESC}</span></dt>
-			<dd><textarea name="RCE_rmv_buttons" id="RCE_rmv_buttons" />{RCE_RMV_BUTTONS}</textarea></dd>
+			<dt><label for="RCE_supext">{L_RCE_SUPEXT_TITLE}</label><br />
+					<span>{L_RCE_SUPEXT_DESC}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_supext" value="1" <!-- IF RCE_SUPEXT -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="RCE_supext" value="0" <!-- IF not RCE_SUPEXT -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
 		</dl>
 		<dl>
-			<dt><label for="RCE_rules">{L_RCE_RULES_TITLE}</label><br />
-				<span>{L_RCE_RULES_DESC}</span></dt>
-			<dd><textarea name="RCE_rules" id="RCE_rules" />{RCE_RULES}</textarea></dd>
+			<dt><label for="RCE_desnopop">{L_RCE_DESNOPOP_TITLE}</label><br />
+					<span>{L_RCE_DESNOPOP_DESC}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_desnopop" value="1" <!-- IF RCE_DESNOPOP -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="RCE_desnopop" value="0" <!-- IF not RCE_DESNOPOP -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
 		</dl>
 		<dl>
-			<dt><label for="RCE_rules_des">{L_RCE_RULESDESF_TITLE}</label><br />
-				<span>{L_RCE_RULES_DESC}</span></dt>
-			<dd><textarea name="RCE_rules_des" id="RCE_rules_des" />{RCE_RULES_DES}</textarea></dd>
+			<dt><label for="RCE_partial">{L_RCE_PARTIAL_TITLE}</label><br />
+					<span>{L_RCE_PARTIAL_DESC}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_partial" value="1" <!-- IF RCE_PARTIAL -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="RCE_partial" value="0" <!-- IF not RCE_PARTIAL -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+		</dl>
+		<dl>
+			<dt><label for="RCE_cache">{L_RCE_CACHE_TITLE}</label><br />
+				<span>{L_RCE_CACHE_DESC}</span></dt>
+			<dd><input type="number" name="RCE_cache" id="RCE_cache" size="10" maxlength="5" value="{RCE_CACHE}" /></dd>
 		</dl>
 		<dl>
 			<dt><label for="RCE_imgurapi">{L_RCE_IMGUR_TITLE}</label><br />
@@ -90,5 +112,5 @@
 		{S_FORM_TOKEN}
 	</fieldset>
 </form>
-
+<!-- INCLUDEJS @rin_editor/js/perm.js -->
 <!-- INCLUDE overall_footer.html -->
