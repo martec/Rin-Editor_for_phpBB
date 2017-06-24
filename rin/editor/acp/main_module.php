@@ -62,7 +62,7 @@ class main_module
 			'RCE_smiley_sc'					=> array('default' => 0,					'validation' => array()),
 			'RCE_autosave'					=> array('default' => 1,					'validation' => array()),
 			'RCE_autosave_message'			=> array('default' => 0,					'validation' => array()),
-			'RCE_height'					=> array('default' => 250,					'validation' => array('num', false, 0, 500)),
+			'RCE_height'					=> array('default' => 250,					'validation' => array('num', false, 0, 1000)),
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
 			'RCE_supsment'					=> array('default' => 0,					'validation' => array()),
 			'RCE_supext'					=> array('default' => 0,					'validation' => array()),
