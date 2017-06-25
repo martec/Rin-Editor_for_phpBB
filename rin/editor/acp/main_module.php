@@ -68,6 +68,7 @@ class main_module
 			'RCE_supext'					=> array('default' => 0,					'validation' => array()),
 			'RCE_desnopop'					=> array('default' => 0,					'validation' => array()),
 			'RCE_partial'					=> array('default' => 1,					'validation' => array()),
+			'RCE_seltxt'					=> array('default' => 0,					'validation' => array()),
 			'RCE_cache'						=> array('default' => 0,					'validation' => array('num', false, 0, 86400)),
 			'RCE_imgurapi'					=> array('default' => '',					'validation' => array('string', false, 0, 255)),
 			'RCE_skin'						=> array('default' => 'moonocolor',			'validation' => array('string', false, 0, 255)),
@@ -82,8 +83,11 @@ class main_module
 			
 			$bbcode_array = array();
 			foreach ($this->request->variable_names() as $param_name => $param_val) {
-				if(explode('_',$param_val)[1] == 'bbcode') {
-					$bbcode_array[$param_val] = $this->request->variable($param_val, array('' => ''), true);
+				$param_val_array = explode('_',$param_val);
+				if (count($param_val_array)>1) {
+					if(explode('_',$param_val)[1] == 'bbcode') {
+						$bbcode_array[$param_val] = $this->request->variable($param_val, array('' => ''), true);
+					}
 				}
 			}
 
@@ -119,7 +123,7 @@ class main_module
 				}
 				$this->config_text->set('RCE_bbcode_permission', json_encode($bbcode_array));
 				// Add an entry into the log table
-				$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'RCE CONFIG UPDATE', false, array($this->user->data['username']));
+				$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'RCE_CONFIG_UPDATE', false, array($this->user->data['username']));
 
 				trigger_error($this->language->lang('RCE_SETTING_SAVED') . adm_back_link($this->u_action));
 			}

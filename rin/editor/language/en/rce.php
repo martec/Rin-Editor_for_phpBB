@@ -28,6 +28,7 @@ $lang = array_merge($lang, array(
 	// ACP
 	'ACP_RCE_TITLE'			=>	'Rin Editor (Powerd by CKEditor)',
 	'ACP_RCE_SETTING'		=>	'Settings related to the Rin Editor',
+	'RCE_CONFIG_UPDATE'		=>	'Updated Rin Editor settings',
 	'RCE_SETTING_SAVED'		=>	'Settings have been saved successfully!',
 	'RCE_LANGUAGE_TITLE'	=>	'Language of Rin Editor',
 	'RCE_LANGUAGE_DESC'		=>	'Set here language of Rin Editor. Ps. Use default if you want editor detect browser language.',
@@ -57,6 +58,8 @@ $lang = array_merge($lang, array(
 	'RCE_DESNOPOP_DESC'		=>	'Set to yes if you do not want popup of description',
 	'RCE_PARTIAL_TITLE'		=>	'Partial Mode',
 	'RCE_PARTIAL_DESC'		=>	'Set to yes if you want enable Partial Mode feature.<br /><strong>Ps.</strong> This feature does not convert quote tag and code tag in WYSIWYG style like in Xenforo.',
+	'RCE_SELTXT_TITLE'		=>	'Do not replace selected text',
+	'RCE_SELTXT_DESC'		=>	'Set to yes if you do not want that selected text is replaced when the custom button is triggered.<br /><strong>Ps.</strong> Enabling this function may result in some bugs.',
 	'RCE_CACHE_TITLE'		=>	'Cache',
 	'RCE_CACHE_DESC'		=>	'Set the cache time in seconds. Set 0 to disable this function. Max value allowed is 86400.<br /><strong>Ps.</strong> After fully configured it is strongly recommended to use the cache to not inhibit performance.',	
 	'RCE_IMGUR_TITLE'		=>	'Imgur',

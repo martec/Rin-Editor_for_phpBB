@@ -91,6 +91,12 @@
 				<input type="radio" class="radio" name="RCE_partial" value="0" <!-- IF not RCE_PARTIAL -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
 		</dl>
 		<dl>
+			<dt><label for="RCE_seltxt">{L_RCE_SELTXT_TITLE}</label><br />
+					<span>{L_RCE_SELTXT_DESC}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_seltxt" value="1" <!-- IF RCE_SELTXT -->checked="checked" <!-- ENDIF -->/> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="RCE_seltxt" value="0" <!-- IF not RCE_SELTXT -->checked="checked" <!-- ENDIF -->/> {L_NO}</dd>
+		</dl>
+		<dl>
 			<dt><label for="RCE_cache">{L_RCE_CACHE_TITLE}</label><br />
 				<span>{L_RCE_CACHE_DESC}</span></dt>
 			<dd><input type="number" name="RCE_cache" id="RCE_cache" size="10" maxlength="5" value="{RCE_CACHE}" /></dd>

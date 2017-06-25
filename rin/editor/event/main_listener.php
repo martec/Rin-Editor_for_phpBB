@@ -148,7 +148,9 @@ class main_listener implements EventSubscriberInterface
 		$bbcode_status = $smilies_status = $img_status = $url_status = $flash_status = $quote_status = '';
 		$quick_quote_page = false;
 
-		if ((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') {
+		$rcepreurl = $this->request->server('PHP_SELF');
+		$rceurl = substr($rcepreurl, strrpos($rcepreurl, '/') + 1);
+		if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat')) {
 			 $rceqenb = false;
 			 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
 			 return;
@@ -272,6 +274,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_SUP_EXT'					=> $this->config['RCE_supext'],
 			'RCE_DES_NOPOP'					=> $this->config['RCE_desnopop'],
 			'RCE_PARTIAL'					=> $this->config['RCE_partial'],
+			'RCE_SELTEXT'					=> $this->config['RCE_seltxt'],
 			'RCE_ROOT_PATH'					=> $this->root_path,
 			'RCE_SMILEY_PATH'				=> $this->root_path . $this->config['smilies_path'] . '/',
 			'RCE_MAX_NAME_CARACT'			=> $this->config['max_name_chars'],

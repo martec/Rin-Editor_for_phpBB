@@ -40,6 +40,7 @@ class add_module extends \phpbb\db\migration\migration
 			array('config.add', array('RCE_desnopop', 0)),
 			array('config.add', array('RCE_partial', 1)),
 			array('config.add', array('RCE_cache', 0)),
+			array('config.add', array('RCE_seltxt', 0)),
 			array('config.add', array('RCE_imgurapi', '')),
 			array('config.add', array('RCE_skin', 'moonocolor')),
 			array('config_text.add', array('RCE_bbcode_permission', '')),
