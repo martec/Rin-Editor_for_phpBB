@@ -79,14 +79,19 @@ class main_listener implements EventSubscriberInterface
 
 	public function initialize_rcequickquote($event)
 	{
-		$data = $event['rowset_data'];
+		if ($this->config['RCE_quickquote']) {
+			$data = $event['rowset_data'];
 
-		$this->template->assign_block_vars('RCE_POST_ROW',array(
-			'RCE_POST_ID'		=> $data['post_id'],
-			'RCE_USERNAME'		=> $data['username'],
-			'RCE_POST_TIME'		=> $data['post_time'],
-			'RCE_USER_ID'		=> $data['user_id'],
-		));
+			$this->template->assign_block_vars('RCE_POST_ROW',array(
+				'RCE_POST_ID'		=> $data['post_id'],
+				'RCE_USERNAME'		=> $data['username'],
+				'RCE_POST_TIME'		=> $data['post_time'],
+				'RCE_USER_ID'		=> $data['user_id'],
+			));
+		}
+		else {
+			return;
+		}
 	}
 
 	public function rce_get($key)
@@ -149,11 +154,16 @@ class main_listener implements EventSubscriberInterface
 		$quick_quote_page = false;
 
 		$rcepreurl = $this->request->server('PHP_SELF');
-		$rceurl = substr($rcepreurl, strrpos($rcepreurl, '/') + 1);
-		if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat')) {
-			 $rceqenb = false;
-			 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
-			 return;
+		$rcepreadurl = explode('/', $rcepreurl);
+		end($rcepreadurl);
+		$rceadurl = prev($rcepreadurl);
+		if ($rceadurl!='adm') {
+			$rceurl = substr($rcepreurl, strrpos($rcepreurl, '/') + 1);
+			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat')) {
+				 $rceqenb = false;
+				 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
+				 return;
+			}
 		}
 
 		if ($eventname == 'core.viewtopic_modify_page_title') {
