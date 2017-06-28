@@ -255,10 +255,10 @@ class main_listener implements EventSubscriberInterface
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			if (intval($row['display_on_posting'])) {
-				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => ' '.$this->htmlspecialchars_uni($row['code']).' ', 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 			else {
-				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => ' '.$this->htmlspecialchars_uni($row['code']).' ', 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 		}
 
