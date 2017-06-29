@@ -13,7 +13,7 @@ class main_module
 
 	/** @var \phpbb\config\config */
 	protected $config;
-	
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -65,10 +65,10 @@ class main_module
 			'RCE_height'					=> array('default' => 250,					'validation' => array('num', false, 0, 1000)),
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
 			'RCE_supsment'					=> array('default' => 0,					'validation' => array()),
-			'RCE_supext'					=> array('default' => 1,					'validation' => array()),
+			'RCE_supext'					=> array('default' => 0,					'validation' => array()),
 			'RCE_desnopop'					=> array('default' => 0,					'validation' => array()),
-			'RCE_partial'					=> array('default' => 0,					'validation' => array()),
-			'RCE_seltxt'					=> array('default' => 1,					'validation' => array()),
+			'RCE_partial'					=> array('default' => 1,					'validation' => array()),
+			'RCE_seltxt'					=> array('default' => 0,					'validation' => array()),
 			'RCE_cache'						=> array('default' => 0,					'validation' => array('num', false, 0, 86400)),
 			'RCE_imgurapi'					=> array('default' => '',					'validation' => array('string', false, 0, 255)),
 			'RCE_skin'						=> array('default' => 'moonocolor',			'validation' => array('string', false, 0, 255)),
@@ -80,7 +80,7 @@ class main_module
 			{
 				include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
 			}
-			
+
 			$bbcode_array = array();
 			foreach ($this->request->variable_names() as $param_name => $param_val) {
 				$param_val_array = explode('_',$param_val);
@@ -135,7 +135,7 @@ class main_module
 		{
 			$this->template->assign_var(strtoupper($key), $this->config[$key]);
 		}
-		
+
 		$bbcode_group_set = json_decode($this->config_text->get('RCE_bbcode_permission'), true);
 
 		$sql = 'SELECT bbcode_id, bbcode_tag
@@ -149,7 +149,7 @@ class main_module
 			$this->template->assign_block_vars('RCE_BBCODE_TAGS', array('bbcode_name_trigger' => trim($row['bbcode_tag'], '='), 'bbcode_name' => "RCE_bbcode_permission_".$row['bbcode_tag'], 'bbcode_id' => $row['bbcode_id'], 'bbcode_tag' => $row['bbcode_tag'], 'group' => $this->select_groups($bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']], "RCE_bbcode_permission_".$row['bbcode_tag'])));
 		}
 		$this->db->sql_freeresult($result);
-		
+
 		$s_bbcode_options = '<select id="bbcode" name="bbcode">';
 		$s_bbcode_options .= $s_bbcode_option;
 		$s_bbcode_options .= '</select>';
@@ -160,7 +160,19 @@ class main_module
 			'RCE_ROOT_PATH'		=> $this->phpbb_root_path,
 			'U_ACTION'			=> $this->u_action,
 			'RCE_BBCODE_OPTION'	=> $s_bbcode_options,
-		));	
+			'RCE_SKIN_FOLDER'	=> $this->skin_folder(),
+		));
+	}
+
+	public function skin_folder()
+	{
+		if(function_exists('glob')) {
+			return $this->array_to_options($this->config['RCE_skin'], glob($this->phpbb_root_path . 'ext/rin/editor/styles/all/template/js/skins/*' , GLOB_ONLYDIR), 'RCE_skin');
+		}
+		else {
+			return '<input type="text" name="RCE_skin" id="RCE_skin" size="50" maxlength="100" value="'. $this->config['RCE_skin'] .'" />';
+		}
+
 	}
 
 	public function array_to_options($value, $arr, $id)
@@ -168,6 +180,10 @@ class main_module
 		$s_array_to_options = '<select id="' . $id . '" name="' . $id . '">';
 		foreach ($arr as $opt)
 		{
+			if ($id=='RCE_skin') {
+				$opt = explode('/',$opt);
+				$opt = end($opt);
+			}
 			$s_array_to_options .= '<option value="' . $opt . '"' . (($value == $opt) ? ' selected="selected"' : '') . '>' . $opt . '</option>';
 		}
 
@@ -175,7 +191,7 @@ class main_module
 
 		return $s_array_to_options;
 	}
-	
+
 	public function select_groups($group, $key)
 	{
 		if (!is_array($group))
