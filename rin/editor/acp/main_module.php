@@ -85,7 +85,7 @@ class main_module
 			foreach ($this->request->variable_names() as $param_name => $param_val) {
 				$param_val_array = explode('_',$param_val);
 				if (count($param_val_array)>1) {
-					if(explode('_',$param_val)[1] == 'bbcode') {
+					if($param_val_array[1] == 'bbcode') {
 						$bbcode_array[$param_val] = $this->request->variable($param_val, array('' => ''), true);
 					}
 				}
@@ -145,8 +145,14 @@ class main_module
 		$s_bbcode_option = '';
 		while ($row = $this->db->sql_fetchrow($result))
 		{
+			if (isset($bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']])) { 
+				$val = $bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']];
+			}
+			else {
+				$val = '';
+			} 
 			$s_bbcode_option .= '<option value="' . rtrim($row['bbcode_tag'], '=') . '">' . $row['bbcode_tag'] . '</option>';
-			$this->template->assign_block_vars('RCE_BBCODE_TAGS', array('bbcode_name_trigger' => trim($row['bbcode_tag'], '='), 'bbcode_name' => "RCE_bbcode_permission_".$row['bbcode_tag'], 'bbcode_id' => $row['bbcode_id'], 'bbcode_tag' => $row['bbcode_tag'], 'group' => $this->select_groups($bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']], "RCE_bbcode_permission_".$row['bbcode_tag'])));
+			$this->template->assign_block_vars('RCE_BBCODE_TAGS', array('bbcode_name_trigger' => trim($row['bbcode_tag'], '='), 'bbcode_name' => "RCE_bbcode_permission_".$row['bbcode_tag'], 'bbcode_id' => $row['bbcode_id'], 'bbcode_tag' => $row['bbcode_tag'], 'group' => $this->select_groups($val, "RCE_bbcode_permission_".$row['bbcode_tag'])));
 		}
 		$this->db->sql_freeresult($result);
 
