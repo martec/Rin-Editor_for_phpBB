@@ -49,6 +49,7 @@ postuser = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USERNAME}"<!-- IF !RCE
 postdate = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_TIME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
 postuid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USER_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->];
 </script>
+{% include 'rineditor_config.html' %}
 <!-- INCLUDEJS @rin_editor/js/rineditor.js -->
 <!-- INCLUDEJS @rin_editor/js/ckeditor.js -->
 <!-- INCLUDEJS @rin_editor/js/adapters/jquery.js -->
