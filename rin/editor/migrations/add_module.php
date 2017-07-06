@@ -43,6 +43,7 @@ class add_module extends \phpbb\db\migration\migration
 			array('config.add', array('RCE_seltxt', 1)),
 			array('config.add', array('RCE_imgurapi', '')),
 			array('config.add', array('RCE_skin', 'moonocolor')),
+			array('config.add', array('RCE_rmv_acp_color', 0)),
 			array('config_text.add', array('RCE_bbcode_permission', '')),
 
 			// Add a parent module (ACP_DEMO_TITLE) to the Extensions tab (ACP_CAT_DOT_MODS)

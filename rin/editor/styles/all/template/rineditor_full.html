@@ -1,4 +1,4 @@
-<!-- IF RCE_LOAD and S_BBCODE_ALLOWED -->
+{% if RCE_LOAD and S_BBCODE_ALLOWED %}
 <script type="text/javascript">
 RinEditor = {
 	"Video URL:": "{{ lang('RCE_VIDEO_URL') }}",
@@ -17,42 +17,47 @@ if (!rce_sty) {
 	rce_sty['mode'] = 'wysiwyg';
 	localStorage.setItem('rce_mode', JSON.stringify(rce_sty));
 }
-var dropdownsmiliesurl = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.url}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
-dropdownsmiliesdes = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.code}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
-dropdownsmiliesname = [<!-- BEGIN RCE_EMOTICONS -->"{RCE_EMOTICONS.name}"<!-- IF !RCE_EMOTICONS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS -->],
-dropdownsmiliesurlmore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.url}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
-dropdownsmiliesdesmore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.code}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
-dropdownsmiliesnamemore = [<!-- BEGIN RCE_EMOTICONS_PLUS -->"{RCE_EMOTICONS_PLUS.name}"<!-- IF !RCE_EMOTICONS_PLUS.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_EMOTICONS_PLUS -->],
-smileydirectory = "{RCE_SMILEY_PATH}",
-rinsmileysc = '{RCE_SMILEY_SC}',
+var dropdownsmiliesurl = [{% for RCE_EMOTICONS in loops.RCE_EMOTICONS %}"{{ RCE_EMOTICONS.url }}"{% if !RCE_EMOTICONS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+dropdownsmiliesdes = [{% for RCE_EMOTICONS in loops.RCE_EMOTICONS %}"{{ RCE_EMOTICONS.code }}"{% if !RCE_EMOTICONS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+dropdownsmiliesname = [{% for RCE_EMOTICONS in loops.RCE_EMOTICONS %}"{{ RCE_EMOTICONS.name }}"{% if !RCE_EMOTICONS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+dropdownsmiliesurlmore = [{% for RCE_EMOTICONS_PLUS in loops.RCE_EMOTICONS_PLUS %}"{{ RCE_EMOTICONS_PLUS.url }}"{% if !RCE_EMOTICONS_PLUS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+dropdownsmiliesdesmore = [{% for RCE_EMOTICONS_PLUS in loops.RCE_EMOTICONS_PLUS %}"{{ RCE_EMOTICONS_PLUS.code }}"{% if !RCE_EMOTICONS_PLUS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+dropdownsmiliesnamemore = [{% for RCE_EMOTICONS_PLUS in loops.RCE_EMOTICONS_PLUS %}"{{ RCE_EMOTICONS_PLUS.name }}"{% if !RCE_EMOTICONS_PLUS.S_LAST_ROW %}, {% endif %}{% endfor %}],
+smileydirectory = "{{ RCE_SMILEY_PATH }}",
+rinsmileysc = '{{ RCE_SMILEY_SC }}',
 rinstartupmode = rce_sty['mode'],
-rinmobsms = '{RCE_MOBM_SOURCE}',
-rinlanguage = '{RCE_LANGUAGE}',
-rinheight = '{RCE_HEIGHT}',
-rinrmvbut = '<!-- BEGIN RCE_RMV_BUTTONS -->{RCE_RMV_BUTTONS.rule}<!-- IF !RCE_RMV_BUTTONS.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RMV_BUTTONS -->',
-extrabut = '<!-- BEGIN RCE_RULES -->{RCE_RULES.rule}<!-- IF !RCE_RULES.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RULES -->',
-extrabutdesc = '<!-- IF S_BBCODE_FLASH -->flash<!-- ENDIF --><!-- BEGIN RCE_RULES_DES --><!-- IF !RCE_RULES_DES.S_FIRST_ROW or S_BBCODE_FLASH -->,<!-- ENDIF -->{RCE_RULES_DES.rule}<!-- IF !RCE_RULES_DES.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RULES_DES -->',
-rinautosave = '<!-- IF !S_LINKS_ALLOWED -->link,<!-- ENDIF --><!-- IF !S_BBCODE_IMG -->image,<!-- ENDIF --><!-- IF !S_BBCODE_QUOTE -->blockquote,<!-- ENDIF --><!-- IF !RCE_AUTOSAVE -->autosave,<!-- ENDIF --><!-- IF !S_SMILIES_ALLOWED -->smiley,emojione,<!-- ENDIF --><!-- BEGIN RCE_RMV_PLUGIN -->{RCE_RMV_PLUGIN.rule}<!-- IF !RCE_RMV_PLUGIN.S_LAST_ROW -->,<!-- ENDIF --><!-- END RCE_RMV_PLUGIN -->',
-rinautosavemsg = '{RCE_AUTOSAVE_MESSAGE}',
-rinskin = '{RCE_SKIN}',
-rootpath = "{RCE_ROOT_PATH}",
-rinimgur = '{RCE_IMGURAPI}',
-maxncharc = '{RCE_MAX_NAME_CARACT}',
-maxfontsize = '{RCE_MAX_FONT_SIZE}',
-desnopop = '{RCE_DES_NOPOP}',
-partialmode = '{RCE_PARTIAL}',
-supext = '{RCE_SUP_EXT}',
-seltext = '{RCE_SELTEXT}',
+rinmobsms = '{{ RCE_MOBM_SOURCE }}',
+rinlanguage = '{{ RCE_LANGUAGE }}',
+rinheight = '{{ RCE_HEIGHT }}',
+rinrmvbut = '{% for RCE_RMV_BUTTONS in loops.RCE_RMV_BUTTONS %}{{ RCE_RMV_BUTTONS.rule }}{% if !RCE_RMV_BUTTONS.S_LAST_ROW %},{% endif %}{% endfor %}',
+extrabut = {
+	{% for RCE_RULES in loops.RCE_RULES %}"{{ RCE_RULES.rule }}":"{{ RCE_RULES.help }}"{% if !RCE_RULES.S_LAST_ROW %},{% endif %}{% endfor %}
+},
+extrabutdesc = {
+	{% if S_BBCODE_FLASH %}"flash":""{% endif %}{% for RCE_RULES_DES in loops.RCE_RULES_DES %}{% if !RCE_RULES_DES.S_FIRST_ROW or S_BBCODE_FLASH %},{% endif %}"{{ RCE_RULES_DES.rule }}":"{{ RCE_RULES_DES.help }}"{% endfor %}
+},
+rinautosave = '{% if !S_LINKS_ALLOWED %}link,{% endif %}{% if !S_BBCODE_IMG %}image,{% endif %}{% if !S_BBCODE_QUOTE %}blockquote,{% endif %}{% if !RCE_AUTOSAVE %}autosave,{% endif %}{% if !S_SMILIES_ALLOWED %}smiley,emojione,{% endif %}{% for RCE_RMV_PLUGIN in loops.RCE_RMV_PLUGIN %}{{ RCE_RMV_PLUGIN.rule }}{% if !RCE_RMV_PLUGIN.S_LAST_ROW %},{% endif %}{% endfor %}',
+rinautosavemsg = '{{ RCE_AUTOSAVE_MESSAGE }}',
+rinskin = '{{ RCE_SKIN }}',
+rootpath = "{{ RCE_ROOT_PATH }}",
+rinimgur = '{{ RCE_IMGURAPI }}',
+maxncharc = '{{ RCE_MAX_NAME_CARACT }}',
+maxfontsize = '{{ RCE_MAX_FONT_SIZE }}',
+desnopop = '{{ RCE_DES_NOPOP }}',
+partialmode = '{{ RCE_PARTIAL }}',
+supext = '{{ RCE_SUP_EXT }}',
+seltext = '{{ RCE_SELTEXT }}',
+rmvcolor = '{{ RCE_RMV_COLOR }}',
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
-postid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
-postuser = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USERNAME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
-postdate = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_POST_TIME}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->],
-postuid = [<!-- BEGIN RCE_POST_ROW -->"{RCE_POST_ROW.RCE_USER_ID}"<!-- IF !RCE_POST_ROW.S_LAST_ROW -->, <!-- ENDIF --><!-- END RCE_POST_ROW -->];
+postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
+postuser = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USERNAME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
+postdate = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_TIME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
+postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}];
 </script>
 {% include 'rineditor_config.html' %}
-<!-- INCLUDEJS @rin_editor/js/rineditor.js -->
-<!-- INCLUDEJS @rin_editor/js/ckeditor.js -->
-<!-- INCLUDEJS @rin_editor/js/adapters/jquery.js -->
-<!-- INCLUDEJS @rin_editor/js/rck.init.js -->
-<!-- IF RCE_SUP_SMENT and UA_AJAX_MENTION_URL --><!-- INCLUDEJS @rin_editor/js/automention.js --><!-- ENDIF -->
-<!-- ENDIF -->
+{% INCLUDEJS '@rin_editor/js/rineditor.js' %}
+{% INCLUDEJS '@rin_editor/js/ckeditor.js' %}
+{% INCLUDEJS '@rin_editor/js/adapters/jquery.js' %}
+{% INCLUDEJS '@rin_editor/js/rck.init.js' %}
+{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}{% INCLUDEJS '@rin_editor/js/automention.js' %}{% endif %}
+{% endif %}

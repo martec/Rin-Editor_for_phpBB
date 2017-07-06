@@ -69,6 +69,7 @@ class main_module
 			'RCE_desnopop'					=> array('default' => 0,					'validation' => array()),
 			'RCE_partial'					=> array('default' => 1,					'validation' => array()),
 			'RCE_seltxt'					=> array('default' => 0,					'validation' => array()),
+			'RCE_rmv_acp_color'				=> array('default' => 0,					'validation' => array()),
 			'RCE_cache'						=> array('default' => 0,					'validation' => array('num', false, 0, 86400)),
 			'RCE_imgurapi'					=> array('default' => '',					'validation' => array('string', false, 0, 255)),
 			'RCE_skin'						=> array('default' => 'moonocolor',			'validation' => array('string', false, 0, 255)),

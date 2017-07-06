@@ -180,7 +180,7 @@ class main_listener implements EventSubscriberInterface
 		$bbcode_disp_array = array();
 		$rce_default_noperm_bbcode = array();
 
-		$sql = 'SELECT display_on_posting, bbcode_tag
+		$sql = 'SELECT display_on_posting, bbcode_tag, bbcode_helpline
 			FROM ' . BBCODES_TABLE . '';
 
 		if ((int)$this->config['RCE_cache']) {
@@ -196,7 +196,7 @@ class main_listener implements EventSubscriberInterface
 					$rce_default_noperm_bbcode[$row['bbcode_tag']] = $row['bbcode_tag'];
 				}
 				else if (!isset($rce_default_bbcode[$row['bbcode_tag']]) && $row['display_on_posting']) {
-					$bbcode_disp_array[$row['bbcode_tag']] = $row['bbcode_tag'];
+					$bbcode_disp_array[$row['bbcode_tag']] = $row['bbcode_helpline'];
 				}
 			}
 			else {
@@ -206,13 +206,13 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
-		foreach ($bbcode_disp_array as $bbcode_disp_array_name)
+		foreach ($bbcode_disp_array as $bbcode_disp_array_name => $bbcode_disp_array_value)
 		{
 			if (substr($bbcode_disp_array_name, -1) == "=") {
-				$this->template->assign_block_vars('RCE_RULES_DES', array('rule' => rtrim($bbcode_disp_array_name, '=')));
+				$this->template->assign_block_vars('RCE_RULES_DES', array('rule' => rtrim($bbcode_disp_array_name, '='), 'help' => $bbcode_disp_array_value));
 			}
 			else {
-				$this->template->assign_block_vars('RCE_RULES', array('rule' => $bbcode_disp_array_name));
+				$this->template->assign_block_vars('RCE_RULES', array('rule' => $bbcode_disp_array_name, 'help' => $bbcode_disp_array_value));
 			}
 		}
 
@@ -255,10 +255,10 @@ class main_listener implements EventSubscriberInterface
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			if (intval($row['display_on_posting'])) {
-				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => ' '.$this->htmlspecialchars_uni($row['code']).' ', 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 			else {
-				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => ' '.$this->htmlspecialchars_uni($row['code']).' ', 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 		}
 
@@ -285,6 +285,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_DES_NOPOP'					=> $this->config['RCE_desnopop'],
 			'RCE_PARTIAL'					=> $this->config['RCE_partial'],
 			'RCE_SELTEXT'					=> $this->config['RCE_seltxt'],
+			'RCE_RMV_COLOR'					=> $this->config['RCE_rmv_acp_color'],
 			'RCE_ROOT_PATH'					=> $this->root_path,
 			'RCE_SMILEY_PATH'				=> $this->root_path . $this->config['smilies_path'] . '/',
 			'RCE_MAX_NAME_CARACT'			=> $this->config['max_name_chars'],
@@ -295,6 +296,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_URL_STATUS'				=> $url_status,
 			'RCE_FLASH_STATUS'				=> $flash_status,
 			'RCE_QUOTE_STATUS'				=> $quote_status,
+			'RCE_USER_LANGUAGE'				=> $this->user->data['user_lang'],
 		));
 	}
 
