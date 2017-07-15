@@ -103,19 +103,8 @@ class main_listener implements EventSubscriberInterface
 
 	public function rce_parse_change($event)
 	{
-		$patterns = array('/<\/blockquote><br>/', '/<\/div><br>/', '/<\/address><br>/', '/<\/article><br>/', '/<\/aside><br>/', '/<\/canvas><br>/', 
-			'/<\/dd><br>/', '/<\/dl><br>/', '/<\/dt><br>/', '/<\/fieldset><br>/', '/<\/figcaption><br>/', '/<\/figure><br>/', '/<\/footer><br>/', 
-			'/<\/form><br>/', '/<\/h1><br>/', '/<\/h2><br>/', '/<\/h3><br>/', '/<\/h4><br>/', '/<\/h5><br>/', '/<\/h6><br>/', '/<\/header><br>/', 
-			'/<\/hgroup><br>/', '/<\/hr><br>/', '/<\/li><br>/', '/<\/main><br>/', '/<\/nav><br>/', '/<\/noscript><br>/', '/<\/ol><br>/', '/<\/output><br>/', 
-			'/<\/p><br>/', '/<\/pre><br>/', '/<\/section><br>/', '/<\/table><br>/', '/<\/tfoot><br>/', '/<\/ul><br>/', '/<\/video><br>/');
-
-		$replacements = array('</blockquote>', '</div>', '</address>', '</article>', '</aside>', '</canvas>', 
-			'</dd>', '</dl>', '</dt>', '</fieldset>', '</figcaption>', '</figure>', '</footer>', 
-			'</form>', '</h1>', '</h2>', '</h3>', '</h4>', '</h5>', '</h6>', '</header>', 
-			'</hgroup>', '</hr>', '</li>', '</main>', '</nav>', '</noscript>', '</ol>', '</output>', 
-			'</p>', '</pre>', '</section>', '</table>', '</tfoot>', '</ul>', '</video>');
-
-		$event['html'] = preg_replace($patterns, $replacements, $event['html']);
+		$event['html'] = preg_replace("#(</?(?:html|address|article|aside|canvas|dd|dl|dt|fieldset|figcaption|figure|footer|h1|h2|h3|h4|h5|h6|header|hgroup|main|nav|noscript|output|pre|section|video|head|body|div|p|form|table|thead|tbody|tfoot|tr|td|th|ul|ol|li|div|p|blockquote|cite|hr)[^>]*>)\s*<br>#i", "$1", $event['html']);
+		$event['html'] = preg_replace("#(&nbsp;)+(</?(?:html|address|article|aside|canvas|dd|dl|dt|fieldset|figcaption|figure|footer|h1|h2|h3|h4|h5|h6|header|hgroup|main|nav|noscript|output|pre|section|video|head|body|div|p|form|table|thead|tbody|tfoot|tr|td|th|ul|ol|li|div|p|blockquote|cite|hr)[^>]*>)#i", "$2", $event['html']);
 	}
 
 	public function rce_get($key)
