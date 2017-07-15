@@ -25,21 +25,6 @@ body
 	line-height: 1.4;
 }
 
-.cke_editable table+br,
-.cke_editable hr+br,
-.cke_editable div+br,
-.cke_editable ul+br,
-.cke_editable ol+br,
-.cke_editable dl+br,
-.cke_editable form+br,
-.cke_editable blockquote+br,
-.cke_editable code+br,
-.cke_editable pre+br,
-.cke_editable p+br
-{
-	display: none;
-}
-
 p {
 	margin: 0px;
 }
