@@ -41,7 +41,7 @@ branches:
     - /^\d+(\.\d+)?\.x$/
 
 before_install:
- - chmod +x travis/prepare-phpbb.sh
+  - chmod +x travis/prepare-phpbb.sh
 
 install:
   - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
