@@ -44,6 +44,7 @@ branches:
 
 before_install:
   - chmod +x travis/prepare-phpbb.sh
+  - chmod +x travis/prepare-epv.sh
 
 install:
   - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
