@@ -36,6 +36,7 @@ class add_module extends \phpbb\db\migration\migration
 			array('config.add', array('RCE_quickquote', 1)),
 			array('config.add', array('RCE_supsment', 0)),
 			array('config.add', array('RCE_height', 250)),
+			array('config.add', array('RCE_max_height', 500)),
 			array('config.add', array('RCE_supext', 1)),
 			array('config.add', array('RCE_desnopop', 0)),
 			array('config.add', array('RCE_partial', 0)),

@@ -290,6 +290,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_AUTOSAVE'					=> $this->config['RCE_autosave'],
 			'RCE_AUTOSAVE_MESSAGE'			=> $this->config['RCE_autosave_message'],
 			'RCE_HEIGHT'					=> $this->config['RCE_height'],
+			'RCE_MAX_HEIGHT'				=> $this->config['RCE_max_height'],
 			'RCE_IMGURAPI'					=> $this->config['RCE_imgurapi'],
 			'RCE_SKIN'						=> $this->config['RCE_skin'],
 			'RCE_QUICK_QUOTE'				=> $this->config['RCE_quickquote'],

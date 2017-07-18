@@ -61,6 +61,11 @@
 			<dd><input type="number" name="RCE_height" id="RCE_height" size="10" maxlength="3" value="{{ RCE_HEIGHT }}" /></dd>
 		</dl>
 		<dl>
+			<dt><label for="RCE_max_height">{{ lang('RCE_MAX_HEIGHT_TITLE') }}</label><br />
+				<span>{{ lang('RCE_MAX_HEIGHT_DESC') }}</span></dt>
+			<dd><input type="number" name="RCE_max_height" id="RCE_max_height" size="10" maxlength="3" value="{{ RCE_MAX_HEIGHT }}" /></dd>
+		</dl>
+		<dl>
 			<dt><label for="RCE_quickquote">{{ lang('RCE_QUICKQUOTE_TITLE') }}</label><br />
 					<span>{{ lang('RCE_QUICKQUOTE_DESC') }}</span</dt>
 			<dd><input type="radio" class="radio" name="RCE_quickquote" value="1" {% if RCE_QUICKQUOTE %}checked="checked" {% endif %}/> {{ lang('YES') }} &nbsp;

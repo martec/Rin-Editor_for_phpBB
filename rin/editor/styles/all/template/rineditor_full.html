@@ -29,6 +29,7 @@ rinstartupmode = rce_sty['mode'],
 rinmobsms = '{{ RCE_MOBM_SOURCE }}',
 rinlanguage = '{{ RCE_LANGUAGE }}',
 rinheight = '{{ RCE_HEIGHT }}',
+rinmaxheight = '{{ RCE_MAX_HEIGHT }}',
 rinrmvbut = '{% for RCE_RMV_BUTTONS in loops.RCE_RMV_BUTTONS %}{{ RCE_RMV_BUTTONS.rule }}{% if !RCE_RMV_BUTTONS.S_LAST_ROW %},{% endif %}{% endfor %}',
 extrabut = {
 	{% for RCE_RULES in loops.RCE_RULES %}"{{ RCE_RULES.rule }}":"{{ RCE_RULES.help }}"{% if !RCE_RULES.S_LAST_ROW %},{% endif %}{% endfor %}
@@ -54,6 +55,11 @@ postuser = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USE
 postdate = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_TIME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
 postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}];
 </script>
+<style type="text/css">
+#postingbox {
+	max-height: none;
+}
+</style>
 {% include 'rineditor_config.html' %}
 {% INCLUDEJS '@rin_editor/js/rineditor.js' %}
 {% INCLUDEJS '@rin_editor/js/ckeditor.js' %}
