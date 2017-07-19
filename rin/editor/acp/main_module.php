@@ -84,10 +84,13 @@ class main_module
 			}
 
 			$bbcode_array = array();
-			foreach ($this->request->variable_names() as $param_name => $param_val) {
+			foreach ($this->request->variable_names() as $param_name => $param_val)
+			{
 				$param_val_array = explode('_',$param_val);
-				if (count($param_val_array)>1) {
-					if($param_val_array[1] == 'bbcode') {
+				if (count($param_val_array)>1)
+				{
+					if ($param_val_array[1] == 'bbcode')
+					{
 						$bbcode_array[$param_val] = $this->request->variable($param_val, array('' => ''), true);
 					}
 				}
@@ -116,8 +119,10 @@ class main_module
 				// Set the options the user configured
 				foreach ($rce_new_config as $config_name => $config_value)
 				{
-					if ($config_name == 'RCE_language') {
-						if ($config_value == 'Default') {
+					if ($config_name == 'RCE_language')
+					{
+						if ($config_value == 'Default')
+						{
 							$config_value = '';
 						}
 					}
@@ -147,12 +152,14 @@ class main_module
 		$s_bbcode_option = '';
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			if (isset($bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']])) { 
+			if (isset($bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']]))
+			{
 				$val = $bbcode_group_set["RCE_bbcode_permission_".$row['bbcode_tag']];
 			}
-			else {
+			else
+			{
 				$val = '';
-			} 
+			}
 			$s_bbcode_option .= '<option value="' . rtrim($row['bbcode_tag'], '=') . '">' . $row['bbcode_tag'] . '</option>';
 			$this->template->assign_block_vars('RCE_BBCODE_TAGS', array('bbcode_name_trigger' => trim($row['bbcode_tag'], '='), 'bbcode_name' => "RCE_bbcode_permission_".$row['bbcode_tag'], 'bbcode_id' => $row['bbcode_id'], 'bbcode_tag' => $row['bbcode_tag'], 'group' => $this->select_groups($val, "RCE_bbcode_permission_".$row['bbcode_tag'])));
 		}
@@ -174,10 +181,12 @@ class main_module
 
 	public function skin_folder()
 	{
-		if(function_exists('glob')) {
+		if (function_exists('glob'))
+		{
 			return $this->array_to_options($this->config['RCE_skin'], glob($this->phpbb_root_path . 'ext/rin/editor/styles/all/template/js/skins/*' , GLOB_ONLYDIR), 'RCE_skin');
 		}
-		else {
+		else
+		{
 			return '<input type="text" name="RCE_skin" id="RCE_skin" size="50" maxlength="100" value="'. $this->config['RCE_skin'] .'" />';
 		}
 
@@ -188,7 +197,8 @@ class main_module
 		$s_array_to_options = '<select id="' . $id . '" name="' . $id . '">';
 		foreach ($arr as $opt)
 		{
-			if ($id=='RCE_skin') {
+			if ($id=='RCE_skin')
+			{
 				$opt = explode('/',$opt);
 				$opt = end($opt);
 			}

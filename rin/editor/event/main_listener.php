@@ -81,7 +81,8 @@ class main_listener implements EventSubscriberInterface
 
 	public function initialize_rcequickquote($event)
 	{
-		if ($this->config['RCE_quickquote']) {
+		if ($this->config['RCE_quickquote'])
+		{
 			$data = $event['rowset_data'];
 
 			$this->template->assign_block_vars('RCE_POST_ROW',array(
@@ -91,7 +92,8 @@ class main_listener implements EventSubscriberInterface
 				'RCE_USER_ID'		=> $data['user_id'],
 			));
 		}
-		else {
+		else
+		{
 			return;
 		}
 	}
@@ -119,10 +121,12 @@ class main_listener implements EventSubscriberInterface
 		$sql = 'SELECT *
 			FROM ' . CONFIG_TEXT_TABLE . '
 			WHERE ' . $this->db->sql_in_set('config_name', $keys, false, true);
-		if ((int)$this->config['RCE_cache']) {
-			$result = $this->db->sql_query($sql, (int)$this->config['RCE_cache']);
+		if ((int) $this->config['RCE_cache'])
+		{
+			$result = $this->db->sql_query($sql, (int) $this->config['RCE_cache']);
 		}
-		else {
+		else
+		{
 			$result = $this->db->sql_query($sql);
 		}
 		$map = array();
@@ -142,20 +146,24 @@ class main_listener implements EventSubscriberInterface
 		{
 			$bbcodes = explode(',', $bbcodes);
 		}
-		if (isset($bbcodes['RCE_bbcode_permission_'.$tag])) {
+		if (isset($bbcodes['RCE_bbcode_permission_'.$tag]))
+		{
 			$bbcode_group_value = $bbcodes['RCE_bbcode_permission_'.$tag];
 			if (!is_array($bbcode_group_value))
 			{
 				$bbcode_group_value = explode(',', $bbcode_group_value);
 			}
-			if (in_array((int)$this->user->data['group_id'],$bbcode_group_value)) {
+			if (in_array((int) $this->user->data['group_id'],$bbcode_group_value))
+			{
 				return true;
 			}
-			else {
+			else
+			{
 				return false;
 			}
 		}
-		else {
+		else
+		{
 			return true;
 		}
 	}
@@ -170,16 +178,19 @@ class main_listener implements EventSubscriberInterface
 		$rcepreadurl = explode('/', $rcepreurl);
 		end($rcepreadurl);
 		$rceadurl = prev($rcepreadurl);
-		if ($rceadurl!='adm') {
+		if ($rceadurl!='adm')
+		{
 			$rceurl = substr($rcepreurl, strrpos($rcepreurl, '/') + 1);
-			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat')) {
+			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat'))
+			{
 				 $rceqenb = false;
 				 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
 				 return;
 			}
 		}
 
-		if ($eventname == 'core.viewtopic_modify_page_title') {
+		if ($eventname == 'core.viewtopic_modify_page_title')
+		{
 			$bbcode_status = ($this->config['allow_bbcode'] && $this->auth->acl_get('f_bbcode', $this->request->variable('f', 0))) ? true : false;
 			$smilies_status	= ($this->config['allow_smilies'] && $this->auth->acl_get('f_smilies', $this->request->variable('f', 0))) ? true : false;
 			$img_status	= ($bbcode_status && $this->auth->acl_get('f_img', $this->request->variable('f', 0))) ? true : false;
@@ -196,24 +207,32 @@ class main_listener implements EventSubscriberInterface
 		$sql = 'SELECT display_on_posting, bbcode_tag, bbcode_helpline
 			FROM ' . BBCODES_TABLE . '';
 
-		if ((int)$this->config['RCE_cache']) {
-			$result = $this->db->sql_query($sql, (int)$this->config['RCE_cache']);
+		if ((int) $this->config['RCE_cache'])
+		{
+			$result = $this->db->sql_query($sql, (int) $this->config['RCE_cache']);
 		}
-		else {
+		else
+		{
 			$result = $this->db->sql_query($sql);
 		}
 
-		while ($row = $this->db->sql_fetchrow($result)) {
-			if ($this->rce_perm_check($row['bbcode_tag'])) {
-				if (isset($rce_default_bbcode[$row['bbcode_tag']]) && !$row['display_on_posting']) {
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			if ($this->rce_perm_check($row['bbcode_tag']))
+			{
+				if (isset($rce_default_bbcode[$row['bbcode_tag']]) && !$row['display_on_posting'])
+				{
 					$rce_default_noperm_bbcode[$row['bbcode_tag']] = $row['bbcode_tag'];
 				}
-				else if (!isset($rce_default_bbcode[$row['bbcode_tag']]) && $row['display_on_posting']) {
+				else if (!isset($rce_default_bbcode[$row['bbcode_tag']]) && $row['display_on_posting'])
+				{
 					$bbcode_disp_array[$row['bbcode_tag']] = $row['bbcode_helpline'];
 				}
 			}
-			else {
-				if (isset($rce_default_bbcode[$row['bbcode_tag']])) {
+			else
+			{
+				if (isset($rce_default_bbcode[$row['bbcode_tag']]))
+				{
 					$rce_default_noperm_bbcode[$row['bbcode_tag']] = $row['bbcode_tag'];
 				}
 			}
@@ -221,17 +240,20 @@ class main_listener implements EventSubscriberInterface
 
 		foreach ($bbcode_disp_array as $bbcode_disp_array_name => $bbcode_disp_array_value)
 		{
-			if (substr($bbcode_disp_array_name, -1) == "=") {
+			if (substr($bbcode_disp_array_name, -1) == "=")
+			{
 				$this->template->assign_block_vars('RCE_RULES_DES', array('rule' => rtrim($bbcode_disp_array_name, '='), 'help' => $bbcode_disp_array_value));
 			}
-			else {
+			else
+			{
 				$this->template->assign_block_vars('RCE_RULES', array('rule' => $bbcode_disp_array_name, 'help' => $bbcode_disp_array_value));
 			}
 		}
 
 		foreach ($rce_default_noperm_bbcode as $rce_default_noperm_bbcode_name)
 		{
-			switch ($rce_default_noperm_bbcode_name) {
+			switch ($rce_default_noperm_bbcode_name)
+			{
 				case 's':
 					$this->template->assign_block_vars('RCE_RMV_BUTTONS', array('rule' => 'Strike'));
 					break;
@@ -259,25 +281,30 @@ class main_listener implements EventSubscriberInterface
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
 			GROUP BY smiley_url';
-		if ((int)$this->config['RCE_cache']) {
-			$result = $this->db->sql_query($sql, (int)$this->config['RCE_cache']);
+		if ((int) $this->config['RCE_cache'])
+		{
+			$result = $this->db->sql_query($sql, (int) $this->config['RCE_cache']);
 		}
-		else {
+		else
+		{
 			$result = $this->db->sql_query($sql);
 		}
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			if (intval($row['display_on_posting'])) {
+			if (intval($row['display_on_posting']))
+			{
 				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
-			else {
+			else
+			{
 				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
 			}
 		}
 
 		$fontsizes = array(50, 85, 100, 150, 200);
 
-		foreach ($fontsizes as &$fontsize) {
+		foreach ($fontsizes as &$fontsize)
+		{
 			$this->template->assign_block_vars('RCE_FONT_SIZES', array('size' => $fontsize));
 		}
 
@@ -317,10 +344,12 @@ class main_listener implements EventSubscriberInterface
 	public function rce_bbcode_perm($event)
 	{
 		$bbcodes = json_decode($this->rce_get('RCE_bbcode_permission'), true);
-		if (empty($bbcodes)) {
+		if (empty($bbcodes))
+		{
 			return;
 		}
-		else {
+		else
+		{
 			if (!is_array($bbcodes))
 			{
 				$bbcodes = explode(',', $bbcodes);
@@ -331,7 +360,7 @@ class main_listener implements EventSubscriberInterface
 				{
 					$bbcode_group_value = explode(',', $bbcode_group_value);
 				}
-				if (!in_array((int)$this->user->data['group_id'],$bbcode_group_value)) {
+				if (!in_array((int) $this->user->data['group_id'],$bbcode_group_value)) {
 					$bbcode_name = rtrim($bbcode_name, '=');
 					$bbcode_name = explode('_',$bbcode_name)[3];
 					$event['parser']->disable_bbcode($bbcode_name);
