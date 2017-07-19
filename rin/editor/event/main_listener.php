@@ -360,7 +360,8 @@ class main_listener implements EventSubscriberInterface
 				{
 					$bbcode_group_value = explode(',', $bbcode_group_value);
 				}
-				if (!in_array((int) $this->user->data['group_id'],$bbcode_group_value)) {
+				if (!in_array((int) $this->user->data['group_id'],$bbcode_group_value))
+				{
 					$bbcode_name = rtrim($bbcode_name, '=');
 					$bbcode_name = explode('_',$bbcode_name)[3];
 					$event['parser']->disable_bbcode($bbcode_name);
