@@ -11,11 +11,13 @@
 set -e
 set -x
 
-NOTESTS=$1
+EPV=$1
+NOTESTS=$2
 
-if [ "$NOTESTS" == "1" ]
+if [ "$EPV" == "1" -a "$NOTESTS" == "1" ]
 then
 	cd phpBB
-	composer require phpbb/epv:dev-master --dev --no-interaction
+	composer remove sami/sami --update-with-dependencies --dev --no-interaction
+	composer require phpbb/epv:dev-master --dev --no-interaction --ignore-platform-reqs
 	cd ../
 fi
