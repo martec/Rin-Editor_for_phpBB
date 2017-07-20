@@ -278,6 +278,11 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		if ((int) $this->config['RCE_height'] ==  (int) $this->config['RCE_max_height'])
+		{
+			$this->template->assign_block_vars('RCE_RMV_PLUGIN', array('rule' => 'autogrow'));
+		}
+
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
 			GROUP BY smiley_url';

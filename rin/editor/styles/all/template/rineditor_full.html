@@ -56,7 +56,7 @@ postdate = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POS
 postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}];
 </script>
 <style type="text/css">
-fieldset.fields1 {
+#message-box {
 	display: inline-block;
 }
 </style>
