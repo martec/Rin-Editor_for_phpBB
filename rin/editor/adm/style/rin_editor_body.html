@@ -118,10 +118,26 @@
 			<dd><input type="text" name="RCE_imgurapi" id="RCE_imgurapi" size="50" maxlength="100" value="{{ RCE_IMGURAPI }}" /></dd>
 		</dl>
 		<dl>
-			<dt><label for="RCE_skin">{{ lang('RCE_SKIN_TITLE') }}</label><br />
-				<span>{{ lang('RCE_SKIN_DESC') }}</span></dt>
-			<dd>{{ RCE_SKIN_FOLDER }}</dd>
+			<dt><label>{{ lang('RCE_STYLE_TITLE') }}</label><br />
+				<span>{{ lang('RCE_STYLE_DESC') }}</span></dt>
+			<dd>
+				{{ RCE_STYLE_OPTION }}
+			</dd>
 		</dl>
+		{% for RCE_STYLE_SKIN in loops.RCE_STYLE_SKIN %}<dl class="stypref" id="{{ RCE_STYLE_SKIN.name }}" style="display:none">
+			<dt><label for="{{ RCE_STYLE_SKIN.name }}">{{ lang('RCE_SKIN_TITLE') }}{{ RCE_STYLE_SKIN.name }}</label><br />
+				<span>{{ lang('RCE_SKIN_DESC') }}</span></dt>
+			<dd>
+				{{ RCE_STYLE_SKIN.skin }}
+			</dd>
+		</dl>
+		<dl class="skinpref" id="{{ RCE_STYLE_SKIN.name }}_2" style="display:none">
+			<dt><label for="{{ RCE_STYLE_SKIN.name }}_2">{{ lang('RCE_TXTA_TITLE') }}{{ RCE_STYLE_SKIN.name }}</label><br />
+				<span>{{ lang('RCE_TXTA_DESC') }}</span></dt>
+			<dd>
+				{{ RCE_STYLE_SKIN.black }}
+			</dd>
+		</dl>{% endfor %}
 		<p class="submit-buttons">
 			<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
 			<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />

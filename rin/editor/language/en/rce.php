@@ -68,6 +68,10 @@ $lang = array_merge($lang, array(
 	'RCE_CACHE_DESC'		=>	'Set the cache time in seconds. Set 0 to disable this function. Max value allowed is 86400.<br /><strong>Ps.</strong> After fully configured it is strongly recommended to use the cache to not inhibit performance.',
 	'RCE_IMGUR_TITLE'		=>	'Imgur',
 	'RCE_IMGUR_DESC'		=>	'Set here API of imgur (Client ID).<br /><strong>Ps.</strong> You can get client id in https://imgur.com/register/api_anon (oauth2 without callback)',
-	'RCE_SKIN_TITLE'		=>	'Change Skin',
+	'RCE_STYLE_TITLE'		=>	'Choice Style',
+	'RCE_STYLE_DESC'		=>	'Choice Style that you want change skin of editor.',
+	'RCE_SKIN_TITLE'		=>	'Skin for ',
 	'RCE_SKIN_DESC'			=>	'Enter the Skin name. <br /><strong>Location to put new skin:</strong> root/ext/rin/editor/styles/all/template/js/skins/',
+	'RCE_TXTA_TITLE'		=>	'Text area color for ',
+	'RCE_TXTA_DESC'			=>	'Set to yes if you want change text area color to black.',
 ));

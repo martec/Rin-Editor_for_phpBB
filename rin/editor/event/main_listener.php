@@ -170,6 +170,7 @@ class main_listener implements EventSubscriberInterface
 
 	public function initialize_rceditor($event, $eventname)
 	{
+		//check if it will load editor in quickreply and avoid load editor files in index, mchat and ajaxchat
 		$rceqenb = true;
 		$bbcode_status = $smilies_status = $img_status = $url_status = $flash_status = $quote_status = '';
 		$quick_quote_page = false;
@@ -189,6 +190,7 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		//in quickreply need additional information
 		if ($eventname == 'core.viewtopic_modify_page_title')
 		{
 			$bbcode_status = ($this->config['allow_bbcode'] && $this->auth->acl_get('f_bbcode', $this->request->variable('f', 0))) ? true : false;
@@ -200,6 +202,7 @@ class main_listener implements EventSubscriberInterface
 			$quick_quote_page = true;
 		}
 
+		//permission check
 		$rce_default_bbcode = array('s' => 1, 'sub' => 1, 'sup' => 1, 'align=' => 1, 'font=' => 1, 'hr' => 1, 'youtube' => 1);
 		$bbcode_disp_array = array();
 		$rce_default_noperm_bbcode = array();
@@ -238,6 +241,7 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		//add custom bbcode to rin editor
 		foreach ($bbcode_disp_array as $bbcode_disp_array_name => $bbcode_disp_array_value)
 		{
 			if (substr($bbcode_disp_array_name, -1) == "=")
@@ -250,6 +254,7 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		//rmv plugin or button (without permission or false in display_on_posting)
 		foreach ($rce_default_noperm_bbcode as $rce_default_noperm_bbcode_name)
 		{
 			switch ($rce_default_noperm_bbcode_name)
@@ -278,11 +283,13 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		//autogrow
 		if ((int) $this->config['RCE_height'] ==  (int) $this->config['RCE_max_height'])
 		{
 			$this->template->assign_block_vars('RCE_RMV_PLUGIN', array('rule' => 'autogrow'));
 		}
 
+		//smile
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
 			GROUP BY smiley_url';
@@ -306,11 +313,66 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 
+		//fontsize
 		$fontsizes = array(50, 85, 100, 150, 200);
 
 		foreach ($fontsizes as &$fontsize)
 		{
 			$this->template->assign_block_vars('RCE_FONT_SIZES', array('size' => $fontsize));
+		}
+
+		//skin
+		$style_pref = json_decode($this->rce_get('RCE_style_preference'), true);
+		$skin_pref = json_decode($this->rce_get('RCE_skin_preference'), true);
+
+		$skin = $txta = $txtab = '';
+		if (empty($style_pref))
+		{
+			$skin = 'moonocolor';
+		}
+		else
+		{
+			if (!is_array($style_pref))
+			{
+				$style_pref = explode(',', $style_pref);
+			}
+			foreach ($style_pref as $style_pref_name => $style_pref_value)
+			{
+				if ((int) $this->user->data['user_style'] == (int) explode('_',$style_pref_name)[3])
+				{
+					$skin = $style_pref_value;
+				}
+			}
+		}
+		if (empty($skin))
+		{
+			$skin = 'moonocolor';
+		}
+
+		if (empty($skin_pref))
+		{
+			$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents.css';
+			$txtab = 0;
+		}
+		else
+		{
+			if (!is_array($skin_pref))
+			{
+				$skin_pref = explode(',', $skin_pref);
+			}
+			foreach ($skin_pref as $skin_pref_name => $skin_pref_value)
+			{
+				if (((int) $this->user->data['user_style'] == (int) explode('_',$style_pref_name)[3]) && (int) $skin_pref_value)
+				{
+					$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents_black.css';
+					$txtab = 1;
+				}
+			}
+		}
+		if (empty($txta))
+		{
+			$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents.css';
+			$txtab = 0;
 		}
 
 		$this->template->assign_vars(array(
@@ -324,7 +386,8 @@ class main_listener implements EventSubscriberInterface
 			'RCE_HEIGHT'					=> $this->config['RCE_height'],
 			'RCE_MAX_HEIGHT'				=> $this->config['RCE_max_height'],
 			'RCE_IMGURAPI'					=> $this->config['RCE_imgurapi'],
-			'RCE_SKIN'						=> $this->config['RCE_skin'],
+			'RCE_SKIN'						=> $skin,
+			'RCE_CONTENT_SKIN'				=> $txta,
 			'RCE_QUICK_QUOTE'				=> $this->config['RCE_quickquote'],
 			'RCE_SUP_SMENT'					=> $this->config['RCE_supsment'],
 			'RCE_SUP_EXT'					=> $this->config['RCE_supext'],
@@ -342,6 +405,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_URL_STATUS'				=> $url_status,
 			'RCE_FLASH_STATUS'				=> $flash_status,
 			'RCE_QUOTE_STATUS'				=> $quote_status,
+			'RCE_TXTA_BLACK'				=> $txtab,
 			'RCE_USER_LANGUAGE'				=> $this->user->data['user_lang'],
 		));
 	}

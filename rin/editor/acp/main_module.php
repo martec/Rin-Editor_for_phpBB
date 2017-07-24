@@ -83,7 +83,7 @@ class main_module
 				include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
 			}
 
-			$bbcode_array = array();
+			$bbcode_array = $style_array = $skin_array = array();
 			foreach ($this->request->variable_names() as $param_name => $param_val)
 			{
 				$param_val_array = explode('_',$param_val);
@@ -92,6 +92,14 @@ class main_module
 					if ($param_val_array[1] == 'bbcode')
 					{
 						$bbcode_array[$param_val] = $this->request->variable($param_val, array('' => ''), true);
+					}
+					if ($param_val_array[1] == 'style')
+					{
+						$style_array[$param_val] = $this->request->variable($param_val, '', true);
+					}
+					if ($param_val_array[1] == 'skin')
+					{
+						$skin_array[$param_val] = $this->request->variable($param_val, '', true);
 					}
 				}
 			}
@@ -129,6 +137,8 @@ class main_module
 					$this->config->set($config_name, $config_value);
 				}
 				$this->config_text->set('RCE_bbcode_permission', json_encode($bbcode_array));
+				$this->config_text->set('RCE_style_preference', json_encode($style_array));
+				$this->config_text->set('RCE_skin_preference', json_encode($skin_array));
 				// Add an entry into the log table
 				$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'RCE_CONFIG_UPDATE', false, array($this->user->data['username']));
 
@@ -169,25 +179,59 @@ class main_module
 		$s_bbcode_options .= $s_bbcode_option;
 		$s_bbcode_options .= '</select>';
 
+		$style_pref = json_decode($this->config_text->get('RCE_style_preference'), true);
+		$skin_pref = json_decode($this->config_text->get('RCE_skin_preference'), true);
+
+		$sql = 'SELECT style_id, style_name
+			FROM ' . STYLES_TABLE;
+		$result = $this->db->sql_query($sql);
+		$s_style_option = '';
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			if (isset($style_pref["RCE_style_preference_".$row['style_id']]))
+			{
+				$val = $style_pref["RCE_style_preference_".$row['style_id']];
+			}
+			else
+			{
+				$val = 'moonocolor';
+			}
+			if (isset($skin_pref["RCE_skin_preference_".$row['style_id']]))
+			{
+				$val2 = (int) $skin_pref["RCE_skin_preference_".$row['style_id']];
+			}
+			else
+			{
+				$val2 = 0;
+			}
+			$s_style_option .= '<option value="' . $row['style_name'] . '">' . $row['style_name'] . '</option>';
+			$this->template->assign_block_vars('RCE_STYLE_SKIN', array('name' => $row['style_name'], 'id' => $row['style_id'], 'skin' => $this->skin_folder($val, "RCE_style_preference_".$row['style_id']), 'black' => $this->yes_no_options($val2, "RCE_skin_preference_".$row['style_id'])));
+		}
+		$this->db->sql_freeresult($result);
+
+		$s_style_options = '<select id="style" name="style">';
+		$s_style_options .= $s_style_option;
+		$s_style_options .= '</select>';
+
 		$lang_opts = array('Default', 'af', 'ar', 'bg', 'bn', 'bs', 'ca', 'cs', 'cy', 'da', 'de', 'el', 'en', 'en-au', 'en-ca', 'en-gb', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr', 'fr-ca', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'id', 'is', 'it', 'ja', 'ka', 'km', 'ko', 'ku', 'lt', 'lv', 'mk', 'mn', 'ms', 'nb', 'nl', 'no', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'si', 'sk', 'sl', 'sq', 'sr', 'sr-latn', 'sv', 'th', 'tr', 'tt', 'ug', 'uk', 'vi', 'zh', 'zh-cn');
 		$this->template->assign_vars(array(
 			'RCE_LANG_SELECT'	=> $this->array_to_options($this->config['RCE_language'], $lang_opts, 'RCE_language'),
 			'RCE_ROOT_PATH'		=> $this->phpbb_root_path,
 			'U_ACTION'			=> $this->u_action,
 			'RCE_BBCODE_OPTION'	=> $s_bbcode_options,
-			'RCE_SKIN_FOLDER'	=> $this->skin_folder(),
+			'RCE_STYLE_OPTION'	=> $s_style_options
 		));
 	}
 
-	public function skin_folder()
+	public function skin_folder($val, $id)
 	{
 		if (function_exists('glob'))
 		{
-			return $this->array_to_options($this->config['RCE_skin'], glob($this->phpbb_root_path . 'ext/rin/editor/styles/all/template/js/skins/*' , GLOB_ONLYDIR), 'RCE_skin');
+			return $this->array_to_options($val, glob($this->phpbb_root_path . 'ext/rin/editor/styles/all/template/js/skins/*' , GLOB_ONLYDIR), '' . $id . '');
 		}
 		else
 		{
-			return '<input type="text" name="RCE_skin" id="RCE_skin" size="50" maxlength="100" value="'. $this->config['RCE_skin'] .'" />';
+			return '<input type="text" name="' . $id . '" id="' . $id . '" size="50" maxlength="100" value="'. $val .'" />';
 		}
 
 	}
@@ -197,10 +241,14 @@ class main_module
 		$s_array_to_options = '<select id="' . $id . '" name="' . $id . '">';
 		foreach ($arr as $opt)
 		{
-			if ($id=='RCE_skin')
+			$id_split = explode('_',$id);
+			if (count($id_split)>1)
 			{
-				$opt = explode('/',$opt);
-				$opt = end($opt);
+				if ($id_split[1] == 'style')
+				{
+					$opt = explode('/',$opt);
+					$opt = end($opt);
+				}
 			}
 			$s_array_to_options .= '<option value="' . $opt . '"' . (($value == $opt) ? ' selected="selected"' : '') . '>' . $opt . '</option>';
 		}
@@ -233,5 +281,24 @@ class main_module
 		$s_group_options .= '</select>';
 
 		return $s_group_options;
+	}
+
+	public function yes_no_options($value, $id)
+	{
+		$checked = 'checked="checked" ';
+		if ($value)
+		{
+			$val_yes = $checked;
+			$val_no = '';
+		}
+		else
+		{
+			$val_yes = '';
+			$val_no = $checked;
+		}
+		$yes_no_options = '<input type="radio" class="radio" name="' . $id . '" value="1" ' . $val_yes . '/> ' . $this->language->lang('YES') . ' &nbsp;';
+		$yes_no_options .= '<input type="radio" class="radio" name="' . $id . '" value="0" ' . $val_no . '/> ' . $this->language->lang('NO') . '';
+
+		return $yes_no_options;
 	}
 }

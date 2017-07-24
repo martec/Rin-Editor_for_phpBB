@@ -52,6 +52,7 @@ desnopop = '{{ RCE_DES_NOPOP }}',
 partialmode = '{{ RCE_PARTIAL }}',
 supext = '{{ RCE_SUP_EXT }}',
 seltext = '{{ RCE_SELTEXT }}',
+content_url = '{{ RCE_CONTENT_SKIN }}',
 rin_maxstatus = 0,
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
 postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
@@ -63,7 +64,7 @@ postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER
 	var url = $(this).attr('href');
 	if (url.indexOf('sid') == -1) {
 		var n = url.lastIndexOf('p=');
-		var pid = url.substring(n + 2);	
+		var pid = url.substring(n + 2);
 	}
 	else {
 		var n = url.lastIndexOf('&sid');
@@ -90,6 +91,16 @@ postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER
 	});
 });
 </script>
+{% if RCE_TXTA_BLACK %}
+<style type="text/css">
+textarea.cke_source {
+	background-color: #222222 !important;
+	height: 100% !important;
+	width: 100% !important;
+	color: #eeeeee !important;
+}
+</style>
+{% endif %}
 {% include 'rineditor_config.html' %}
 {% INCLUDEJS '@rin_editor/js/rineditor.js' %}
 {% INCLUDEJS '@rin_editor/js/ckeditor.js' %}

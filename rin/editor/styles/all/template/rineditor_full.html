@@ -49,6 +49,7 @@ partialmode = '{{ RCE_PARTIAL }}',
 supext = '{{ RCE_SUP_EXT }}',
 seltext = '{{ RCE_SELTEXT }}',
 rmvcolor = '{{ RCE_RMV_COLOR }}',
+content_url = '{{ RCE_CONTENT_SKIN }}',
 rin_maxstatus = 0,
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
 postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
@@ -60,6 +61,14 @@ postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER
 #message-box {
 	display: inline-block;
 }
+{% if RCE_TXTA_BLACK %}
+textarea.cke_source {
+	background-color: #222222 !important;
+	height: 100% !important;
+	width: 100% !important;
+	color: #eeeeee !important;
+}
+{% endif %}
 </style>
 {% include 'rineditor_config.html' %}
 {% INCLUDEJS '@rin_editor/js/rineditor.js' %}
