@@ -27,6 +27,10 @@ body
 	color: #eeeeee;
 }
 
+.cke_panel_listItem.cke_selected a, .cke_panel_listItem a:hover, .cke_panel_listItem a:focus, .cke_panel_listItem a:active {
+	background-color: #000 !important;
+}
+
 p {
 	margin: 0px;
 }
