@@ -362,7 +362,7 @@ class main_listener implements EventSubscriberInterface
 			}
 			foreach ($skin_pref as $skin_pref_name => $skin_pref_value)
 			{
-				if (((int) $this->user->data['user_style'] == (int) explode('_',$style_pref_name)[3]) && (int) $skin_pref_value)
+				if (((int) $this->user->data['user_style'] == (int) explode('_',$skin_pref_name)[3]) && (int) $skin_pref_value)
 				{
 					$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents_black.css';
 					$txtab = 1;
