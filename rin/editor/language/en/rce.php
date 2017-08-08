@@ -74,4 +74,6 @@ $lang = array_merge($lang, array(
 	'RCE_SKIN_DESC'			=>	'Enter the Skin name. <br /><strong>Location to put new skin:</strong> root/ext/rin/editor/styles/all/template/js/skins/',
 	'RCE_TXTA_TITLE'		=>	'Text area color for ',
 	'RCE_TXTA_DESC'			=>	'Set to yes if you want change text area color to black.',
+	'RCE_BUT_TITLE'			=>	'Location to put icons for custom BBCodes',
+	'RCE_BUT_DESC'			=>	'root/ext/rin/editor/styles/all/template/js/icons<br />(Dimension: 16x16 px, File name: Exactly same of bbcode name, File extension: png.)',
 ));
