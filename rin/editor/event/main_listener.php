@@ -292,7 +292,8 @@ class main_listener implements EventSubscriberInterface
 		//smile
 		$sql = 'SELECT smiley_url, code, display_on_posting, emotion
 			FROM ' . SMILIES_TABLE . '
-			GROUP BY smiley_url';
+			ORDER BY smiley_url';
+		$bef_sm = '';
 		if ((int) $this->config['RCE_cache'])
 		{
 			$result = $this->db->sql_query($sql, (int) $this->config['RCE_cache']);
@@ -303,13 +304,17 @@ class main_listener implements EventSubscriberInterface
 		}
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			if (intval($row['display_on_posting']))
+			if ($bef_sm != $row['smiley_url'])
 			{
-				$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
-			}
-			else
-			{
-				$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				$bef_sm = $row['smiley_url'];
+				if (intval($row['display_on_posting']))
+				{
+					$this->template->assign_block_vars('RCE_EMOTICONS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				}
+				else
+				{
+					$this->template->assign_block_vars('RCE_EMOTICONS_PLUS', array('code' => $this->htmlspecialchars_uni($row['code']), 'url' => $this->root_path . $this->config['smilies_path'] . '/' . $row['smiley_url'], 'name' => $row['emotion']));
+				}
 			}
 		}
 
