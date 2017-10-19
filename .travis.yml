@@ -9,11 +9,10 @@ matrix:
     - php: 5.4
       env: DB=mysql
     - php: 5.4
+      dist: trusty
       env: DB=mariadb
     - php: 5.4
       env: DB=postgres
-      sudo: false
-      dist: precise
     - php: 5.4
       env: DB=sqlite3
     - php: 5.5
