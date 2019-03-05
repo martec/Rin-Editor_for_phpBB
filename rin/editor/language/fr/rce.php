@@ -49,8 +49,8 @@ $lang = array_merge($lang, array(
 	'RCE_INSERT'					=> 'Insérer',
 	'RCE_VIDEO_URL'					=> 'URL ou ID de la vidéo :',
 	'RCE_QUICK_QUOTE'				=> 'Citation',
-	'RCE_UPLOADING'					=> ' images are uploading...',
-	'RCE_FAIL'						=> 'Failed to upload:',
+	'RCE_UPLOADING'					=> ' images en cours d’envoi…',
+	'RCE_FAIL'						=> 'Échec de l’envoi des fichiers :',
 
 	// ACP
 	'ACP_RCE_TITLE'			=>	'Éditeur Rin (par CKEditor)',
