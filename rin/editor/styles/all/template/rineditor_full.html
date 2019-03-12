@@ -80,5 +80,9 @@ textarea.cke_source {
 {% INCLUDEJS '@rin_editor/js/ckeditor.js' %}
 {% INCLUDEJS '@rin_editor/js/adapters/jquery.js' %}
 {% INCLUDEJS '@rin_editor/js/rck.init.js' %}
-{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}{% INCLUDEJS '@rin_editor/js/automention.js' %}{% endif %}
+{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}
+	{% INCLUDECSS '@rin_editor/js/tribute/tribute.css' %}
+	{% INCLUDEJS '@rin_editor/js/tribute/tribute.js' %}
+	{% INCLUDEJS '@rin_editor/js/automention.js' %}
+{% endif %}
 {% endif %}

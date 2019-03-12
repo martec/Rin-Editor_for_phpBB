@@ -393,6 +393,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_IMGURAPI'					=> $this->config['RCE_imgurapi'],
 			'RCE_SKIN'						=> $skin,
 			'RCE_CONTENT_SKIN'				=> $txta,
+			'RCE_AUTH'						=> $this->user->data['is_registered'],			
 			'RCE_QUICK_QUOTE'				=> $this->config['RCE_quickquote'],
 			'RCE_SUP_SMENT'					=> $this->config['RCE_supsment'],
 			'RCE_SUP_EXT'					=> $this->config['RCE_supext'],
@@ -412,6 +413,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_QUOTE_STATUS'				=> $quote_status,
 			'RCE_TXTA_BLACK'				=> $txtab,
 			'RCE_USER_LANGUAGE'				=> $this->user->data['user_lang'],
+			'RCE_U_VIEWPROFILE'			    => (isset($this->auth)) ? $this->auth->acl_get('u_viewprofile') : 0
 		));
 	}
 

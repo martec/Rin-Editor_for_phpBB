@@ -2,14 +2,10 @@
 <script type="text/javascript">
 RinEditor = {
 	"Video URL:": "{{ lang('RCE_VIDEO_URL') }}",
-	"Video Type:": "{{ lang('RCE_VIDEO_TYPE') }}",
 	"Insert": "{{ lang('RCE_INSERT') }}",
 	"Description (optional):": "{{ lang('RCE_DESCRIPTION_OPTIONAL') }}",
 	"Enter the image URL:": "{{ lang('RCE_ENTER_THE_IMAGE_URL') }}",
 	"Enter URL:": "{{ lang('RCE_ENTER_URL') }}",
-	"Dailymotion": "{{ lang('RCE_DAILYMOTION') }}",
-	"Vimeo": "{{ lang('RCE_VIMEO') }}",
-	"Youtube": "{{ lang('RCE_YOUTUBE') }}",
 	"Insert a video": "{{ lang('RCE_INSERT_A_VIDEO') }}",
 	"More": "{{ lang('RCE_MORE') }}",
 	"Restore": "{{ lang('RCE_RESTORE') }}",
@@ -61,37 +57,6 @@ postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_
 postuser = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USERNAME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
 postdate = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_TIME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
 postuid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USER_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}];
-
-($.fn.on || $.fn.live).call($(document), 'click', 'a[href*="mode=edit"]', function () {
-	var url = $(this).attr('href');
-	if (url.indexOf('sid') == -1) {
-		var n = url.lastIndexOf('p=');
-		var pid = url.substring(n + 2);
-	}
-	else {
-		var n = url.lastIndexOf('&sid');
-		var url2 = url.slice(0,n);
-		var n = url2.lastIndexOf('p=')
-		var pid = url2.substring(n + 2);
-	}
-	$( document ).ajaxComplete(function() {
-		$('#quickeditbox form fieldset div textarea').attr( 'id', 'message_'+pid );
-		setTimeout(function() {
-			CKEDITOR.replace( 'message_'+pid, rce_config );
-			if (CKEDITOR.instances['message_'+pid]) {
-				setTimeout(function() {
-					CKEDITOR.instances['message_'+pid].focus();
-				},1000);
-			}
-			offset = $('#message_'+pid).offset().top - 60;
-			setTimeout(function() {
-				$('html, body').animate({
-					scrollTop: offset
-				}, 700);
-			},200);
-		},400);
-	});
-});
 </script>
 {% if RCE_TXTA_BLACK %}
 <style type="text/css">
@@ -111,5 +76,9 @@ textarea.cke_source {
 {% INCLUDEJS '@rin_editor/js/ckeditor.js' %}
 {% INCLUDEJS '@rin_editor/js/adapters/jquery.js' %}
 {% INCLUDEJS '@rin_editor/js/rck.init.js' %}
-{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}{% INCLUDEJS '@rin_editor/js/automention.js' %}{% endif %}
+{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}
+	{% INCLUDECSS '@rin_editor/js/tribute/tribute.css' %}
+	{% INCLUDEJS '@rin_editor/js/tribute/tribute.js' %}
+	{% INCLUDEJS '@rin_editor/js/automention.js' %}
+{% endif %}
 {% endif %}
