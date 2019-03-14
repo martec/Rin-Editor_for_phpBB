@@ -50,7 +50,7 @@ blockquote {
 blockquote:before {
 	font-style: normal;
 	font-weight: bold;
-	content: attr(data-cite);
+	content: attr(data-show);
 	display: block;
 	margin-left: 20px;
 	font-size: 0.9em;

@@ -11,6 +11,9 @@ RinEditor = {
 	"Restore": "{{ lang('RCE_RESTORE') }}",
 	"Uploading": "{{ lang('RCE_UPLOADING') }}",
 	"Fail": "{{ lang('RCE_FAIL') }}",
+	"Wrote": "{L_WROTE}",
+	"Colon": "{L_COLON}",
+	"Quote": "{L_QUOTE}",
 	"Quickquote": "{{ lang('RCE_QUICK_QUOTE') }}"
 };
 rce_sty = JSON.parse(localStorage.getItem('rce_mode'));
@@ -51,7 +54,7 @@ partialmode = '{{ RCE_PARTIAL }}',
 supext = '{{ RCE_SUP_EXT }}',
 seltext = '{{ RCE_SELTEXT }}',
 rmvcolor = '{{ RCE_RMV_COLOR }}',
-content_url = '{{ RCE_CONTENT_SKIN }}',
+content_url = "{{ RCE_CONTENT_SKIN }}?assets_version={T_ASSETS_VERSION}",
 rin_maxstatus = 0,
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
 postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
