@@ -3,8 +3,8 @@
   "type": "phpbb-extension",
   "description": "Rin Editor for phpBB",
   "homepage": "https://github.com/martec/Rin-Editor_for_phpBB",
-  "version": "0.2.14",
-  "time": "2019-03-14",
+  "version": "0.2.15",
+  "time": "2019-03-21",
   "license": "GPL-2.0",
   "authors": [
 	{
