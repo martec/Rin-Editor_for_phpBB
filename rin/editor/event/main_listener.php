@@ -347,6 +347,13 @@ class main_listener implements EventSubscriberInterface
 				{
 					$skin = $style_pref_value;
 				}
+				if ((int) $this->config['override_user_style'])
+				{
+					if ((int) $this->config['default_style'] == (int) explode('_',$style_pref_name)[3])
+					{
+						$skin = $style_pref_value;
+					}
+				}
 			}
 		}
 		if (empty($skin))
@@ -371,6 +378,14 @@ class main_listener implements EventSubscriberInterface
 				{
 					$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents_black.css';
 					$txtab = 1;
+				}
+				if ((int) $this->config['override_user_style'])
+				{
+					if ((int) $this->config['default_style'] == (int) explode('_',$skin_pref_name)[3] && (int) $skin_pref_value)
+					{
+						$txta = $this->root_path . 'ext/rin/editor/styles/all/template/js/contents_black.css';
+						$txtab = 1;
+					}
 				}
 			}
 		}
