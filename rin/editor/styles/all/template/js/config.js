@@ -1,7 +1,70 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
-*/
-CKEDITOR.editorConfig=function(a){(CKEDITOR.env.mobile||CKEDITOR.env.iOS)&&parseInt(rinmobsms)&&(rinstartupmode="source");a.toolbarGroups=[{name:"basicstyles"},{name:"align"},{name:"styles"},{name:"colors",groups:["colors","cleanup"]},{name:"insert"},{name:"list"},{name:"blocks",groups:["blocks","clipboard"]},{name:"extra",groups:["extra","extradesc"]},{name:"undo"},{name:"document",groups:["tools","mode"]}];a.language=rinlanguage;a.removePlugins=rinautosave;a.removeButtons="Cut,Copy,Paste,Anchor,BGColor,indent,"+
-rinrmvbut+"";a.removeDialogTabs="link:advanced";a.title=!1;a.image_prefillDimensions=!1;a.height=rinheight;a.fontSize_sizes=fontsizes;a.smiley_images=dropdownsmiliesurl.concat(dropdownsmiliesurlmore);a.smiley_descriptions=dropdownsmiliesname.concat(dropdownsmiliesnamemore);a.smiley_name=dropdownsmiliesdes.concat(dropdownsmiliesdesmore);a.smiley_path=smileydirectory;a.smiley_sc=rinsmileysc;a.autosave_saveDetectionSelectors='input[name*\x3d"post"],input[name*\x3d"save"],input[name*\x3d"preview"]';a.autosave_message=
-rinautosavemsg;a.imgurClientId=rinimgur;a.disableNativeSpellChecker=!1;a.skin=rinskin};
+/**
+ * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+CKEDITOR.editorConfig = function( config ) {
+	// Define changes to default configuration here.
+	// For complete reference see:
+	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+
+	if ((CKEDITOR.env.mobile || CKEDITOR.env.iOS) && parseInt(rinmobsms)) {
+		rinstartupmode = 'source';
+	}
+	
+	var linkas = '';
+	if (document.querySelector("link[rel='canonical']")) {
+		linkas = document.querySelector("link[rel='canonical']").href;
+	}
+	else {
+		linkas = window.location;
+	}
+
+	// The toolbar groups arrangement, optimized for a single toolbar row.
+	config.toolbarGroups = [
+		{ name: 'basicstyles' },
+		{ name: 'align' },
+		{ name: 'styles' },
+		{ name: 'colors', groups: [ 'colors', 'cleanup' ] },
+		{ name: 'insert' },
+		{ name: 'list' },
+		{ name: 'blocks', groups: [ 'blocks', 'clipboard' ] },
+		{ name: 'extra', groups: [ 'extra', 'extradesc' ] },
+		{ name: 'undo' },
+		{ name: 'document',	groups: [ 'tools', 'mode' ] }
+	];
+
+	config.language = rinlanguage;
+	config.removePlugins = rinautosave;
+
+	// The default plugins included in the basic setup define some buttons that
+	// are not needed in a basic editor. They are removed here.
+	config.removeButtons = 'Cut,Copy,Paste,Anchor,BGColor,indent,'+rinrmvbut+'';
+
+	// Dialog windows are also simplified.
+	config.removeDialogTabs = 'link:advanced';
+
+	config.contentsCss = content_url;
+	config.title = false;
+	config.image_prefillDimensions = false;
+	config.height = rinheight;
+	config.fontSize_sizes = fontsizes;
+	config.smiley_images = dropdownsmiliesurl.concat(dropdownsmiliesurlmore);
+	config.smiley_descriptions = dropdownsmiliesname.concat(dropdownsmiliesnamemore);
+	config.smiley_name = dropdownsmiliesdes.concat(dropdownsmiliesdesmore);
+	config.smiley_path = smileydirectory;
+	config.smiley_sc = rinsmileysc;
+	config.autoGrow_minHeight = rinheight;
+	config.autoGrow_maxHeight = rinmaxheight;
+	config.startupMode = rinstartupmode;
+	config.imgurClientId = rinimgur;
+	config.disableNativeSpellChecker = false;
+	config.skin = rinskin;
+	config.image_previewText = ' ';
+
+	config.autosave = {
+		Savekey : 'autosave_' + linkas,
+		saveDetectionSelectors : 'input[name*="post"],input[name*="save"],input[name*="preview"]',
+		messageType : rinautosavemsg
+	};
+};

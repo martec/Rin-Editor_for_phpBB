@@ -1,2 +1,2 @@
 ﻿($.fn.on||$.fn.live).call($(document),"change","#bbcode",function(){$(".permbb").hide();$("#"+this.value+"").show()});$(document).one("ready",function(){$("#"+$("#bbcode").find("option:first-child").val()+"").show();$("#"+$("#style").find("option:first-child").val()+"").show();$("#"+$("#style").find("option:first-child").val()+"_2").show()});
-($.fn.on||$.fn.live).call($(document),"change","#style",function(){$(".stypref").hide();$("[id\x3d'"+this.value+"']").show();$(".skinpref").hide();$("[id\x3d'"+this.value+"_2']").show()});
+($.fn.on||$.fn.live).call($(document),"change click","#style",function(){$(".stypref").hide();$("[id\x3d'"+this.value+"']").show();$(".skinpref").hide();$("[id\x3d'"+this.value+"_2']").show()});

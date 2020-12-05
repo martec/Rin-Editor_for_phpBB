@@ -109,7 +109,7 @@ class bbcodedata extends \phpbb\db\migration\migration
 				'bbcode_tpl' => '<span style="font-family: {SIMPLETEXT};">{TEXT}</span>',
 				'first_pass_match' => "!\\[font\\=([a-z0-9 ,\-_']+)\\](.*?)\\[/font\\]!ies",
 				'first_pass_replace' => '\'[font=${1}:$uid]\'.str_replace(array("\\r\\n", \'\\"\', \'\\\'\', \'(\', \')\'), array("\\n", \'"\', \'&#39;\', \'&#40;\', \'&#41;\'), trim(\'${2}\')).\'[/font:$uid]\'',
-				'second_pass_match' => "!\\[font\\=([a-z0-9 ,\-_']+):$uid\\](.*?)\\[/font:$uid\\]!s",
+				'second_pass_match' => '!\\[font\\=([a-zA-Z0-9-+.,_ ]+):$uid\\](.*?)\\[/font:$uid\\]!s',
 				'second_pass_replace' => '<span style="font-family: ${1};">${2}</span>'
 			),
 			array( // row #6
