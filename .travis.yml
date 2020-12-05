@@ -1,3 +1,5 @@
+sudo: required
+
 language: php
 dist: xenial
 
@@ -48,6 +50,10 @@ branches:
 services:
   - postgresql
   - mysql
+  
+before_install:
+  - chmod +x travis/prepare-phpbb.sh
+  - chmod +x travis/prepare-epv.sh
 
 install:
   - travis/prepare-phpbb.sh $PHPBB_BRANCH
