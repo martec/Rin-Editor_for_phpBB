@@ -17,7 +17,7 @@ NOTESTS=$2
 if [ "$EPV" == "1" -a "$NOTESTS" == "1" ]
 then
 	cd phpBB
-	composer remove sami/sami --update-with-dependencies --dev --no-interaction
-	composer require phpbb/epv:dev-master --dev --no-interaction --ignore-platform-reqs
+	composer remove sami/sami --update-with-dependencies --with-all-dependencies --dev --no-interaction
+	composer require phpbb/epv:dev-master --dev --no-interaction --with-all-dependencies --ignore-platform-reqs
 	cd ../
 fi
