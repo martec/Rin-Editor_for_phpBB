@@ -182,7 +182,7 @@ class main_listener implements EventSubscriberInterface
 		if ($rceadurl!='adm')
 		{
 			$rceurl = substr($rcepreurl, strrpos($rcepreurl, '/') + 1);
-			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'mchat' || $rceurl == 'chat'))
+			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'app.php' || $rceurl == 'mchat' || $rceurl == 'portal' || $rceurl == 'chat'))
 			{
 				 $rceqenb = false;
 				 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
