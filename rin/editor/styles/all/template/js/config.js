@@ -11,14 +11,6 @@ CKEDITOR.editorConfig = function( config ) {
 	if ((CKEDITOR.env.mobile || CKEDITOR.env.iOS) && parseInt(rinmobsms)) {
 		rinstartupmode = 'source';
 	}
-	
-	var linkas = '';
-	if (document.querySelector("link[rel='canonical']")) {
-		linkas = document.querySelector("link[rel='canonical']").href;
-	}
-	else {
-		linkas = window.location;
-	}
 
 	// The toolbar groups arrangement, optimized for a single toolbar row.
 	config.toolbarGroups = [
@@ -63,7 +55,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.image_previewText = ' ';
 
 	config.autosave = {
-		Savekey : 'autosave_' + linkas,
 		saveDetectionSelectors : 'input[name*="post"],input[name*="save"],input[name*="preview"]',
 		messageType : rinautosavemsg
 	};
