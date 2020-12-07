@@ -52,8 +52,9 @@
 		<dl>
 			<dt><label for="RCE_autosave_message">{{ lang('RCE_AUTOSAVEMSG_TITLE') }}</label><br />
 					<span>{{ lang('RCE_AUTOSAVEMSG_DESC') }}</span</dt>
-			<dd><input type="radio" class="radio" name="RCE_autosave_message" value="notification" {% if RCE_AUTOSAVE_MESSAGE %}checked="checked" {% endif %}/> {{ lang('RCE_AUTOSAVE_NOTIFCAT') }} &nbsp;
-				<input type="radio" class="radio" name="RCE_autosave_message" value="statusbar" {% if not RCE_AUTOSAVE_MESSAGE %}checked="checked" {% endif %}/> {{ lang('RCE_AUTOSAVE_STATUS') }}</dd>
+			<dd><input type="radio" class="radio" name="RCE_autosave_message" value="notification" {% if RCE_AUTOSAVE_MESSAGE === "notification" %}checked="checked" {% endif %}/> {{ lang('RCE_AUTOSAVE_NOTIFCAT') }} &nbsp;
+				<input type="radio" class="radio" name="RCE_autosave_message" value="statusbar" {% if RCE_AUTOSAVE_MESSAGE === "statusbar" %}checked="checked" {% endif %}/> {{ lang('RCE_AUTOSAVE_STATUS') }} &nbsp;
+				<input type="radio" class="radio" name="RCE_autosave_message" value="no" {% if RCE_AUTOSAVE_MESSAGE === "no" %}checked="checked" {% endif %}/> {{ lang('RCE_AUTOSAVE_NONE') }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="RCE_height">{{ lang('RCE_HEIGHT_TITLE') }}</label><br />

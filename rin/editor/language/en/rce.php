@@ -50,6 +50,7 @@ $lang = array_merge($lang, array(
 	'RCE_AUTOSAVEMSG_DESC'	=>	'Set autosave notification type.',
 	'RCE_AUTOSAVE_NOTIFCAT' =>	'Notification',
 	'RCE_AUTOSAVE_STATUS'	=>	'Statusbar',
+	'RCE_AUTOSAVE_NONE' 	=>	'None',
 	'RCE_QUICKQUOTE_TITLE'	=>	'Quick Quote Feature',
 	'RCE_QUICKQUOTE_DESC'	=>	'Set to no if you do not want enable quick quote feature.',
 	'RCE_SUPSMENT_TITLE'	=>	'Active support for Simple mentions extension',

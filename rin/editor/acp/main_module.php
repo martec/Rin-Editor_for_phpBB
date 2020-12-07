@@ -61,7 +61,7 @@ class main_module
 			'RCE_mobm_source'				=> array('default' => 1,					'validation' => array()),
 			'RCE_smiley_sc'					=> array('default' => 0,					'validation' => array()),
 			'RCE_autosave'					=> array('default' => 1,					'validation' => array()),
-			'RCE_autosave_message'			=> array('default' => 'notification',			'validation' => array('string', false, 0, 255)),
+			'RCE_autosave_message'			=> array('default' => 'notification',		'validation' => array('string', false, 0, 255)),
 			'RCE_height'					=> array('default' => 250,					'validation' => array('num', false, 0, 1000)),
 			'RCE_max_height'				=> array('default' => 500,					'validation' => array('num', false, 0, 1000)),
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
