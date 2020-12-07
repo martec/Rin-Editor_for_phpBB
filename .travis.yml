@@ -22,7 +22,7 @@ matrix:
     - php: 7.4
       env: DB=mariadb
     - php: nightly
-      env: DB=mariadb
+      env: DB=mysqli
   allow_failures:
     - php: nightly
 fast_finish: true
