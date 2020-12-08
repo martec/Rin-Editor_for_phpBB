@@ -26,8 +26,8 @@
 	  "phpbb/phpbb": ">=3.2.0"
 	},
 	"version-check": {
-	  "host": "github.com/martec",
-	  "directory": "/Rin-Editor_for_phpBB",
+	  "host": "raw.githubusercontent.com",
+	  "directory": "/martec/Rin-Editor_for_phpBB/master",
 	  "filename": "re_version_file.json",
 	  "ssl": true
 	}
