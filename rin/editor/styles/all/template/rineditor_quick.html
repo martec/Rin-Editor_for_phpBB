@@ -55,6 +55,7 @@ supext = '{{ RCE_SUP_EXT }}',
 seltext = '{{ RCE_SELTEXT }}',
 content_url = "{{ RCE_CONTENT_SKIN }}?assets_version={T_ASSETS_VERSION}",
 rin_maxstatus = 0,
+rin_ment_sup = '{{ RCE_SUP_SMENT }}',
 fontsizes = '{% for font in RCE_FONT_SIZES %}{% if !loop.first and font.size <= RCE_MAX_FONT_SIZE %};{% endif %}{% if !loop.first and RCE_MAX_FONT_SIZE == 0 %};{% endif %}{% if font.size <= RCE_MAX_FONT_SIZE %}{{ font.size }}{% endif %}{% if RCE_MAX_FONT_SIZE == 0 %}{{ font.size }}{% endif %}{% endfor %}',
 postid = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_POST_ID }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
 postuser = [{% for RCE_POST_ROW in loops.RCE_POST_ROW %}"{{ RCE_POST_ROW.RCE_USERNAME }}"{% if !RCE_POST_ROW.S_LAST_ROW %}, {% endif %}{% endfor %}],
@@ -78,8 +79,6 @@ textarea.cke_source {
 {% INCLUDEJS '@rin_editor/js/ckeditor.js' %}
 {% INCLUDEJS '@rin_editor/js/adapters/jquery.js' %}
 {% INCLUDEJS '@rin_editor/js/rck.init.js' %}
-{% if RCE_SUP_SMENT and UA_AJAX_MENTION_URL %}
-	{% INCLUDEJS '@rin_editor/js/tribute/tribute.js' %}
-	{% INCLUDEJS '@rin_editor/js/automention.js' %}
-{% endif %}
+{% INCLUDEJS '@rin_editor/js/tribute/tribute.js' %}
+{% INCLUDEJS '@rin_editor/js/automention.js' %}
 {% endif %}
