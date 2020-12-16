@@ -2,3 +2,6 @@
 {% INCLUDECSS '@rin_editor/js/quickquote.css' %}
 {% INCLUDEJS '@rin_editor/js/thread.quickquote.js' %}
 {% endif %}
+{% if RCE_QUICK_REPLY and RCE_AUTH %}
+{% INCLUDEJS '@rin_editor/js/thread.quickreply.js' %}
+{% endif %}

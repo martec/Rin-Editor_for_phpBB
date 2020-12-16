@@ -78,6 +78,8 @@ $lang = array_merge($lang, array(
 	'RCE_AUTOSAVE_NONE' 	=>	'Aucune',
 	'RCE_QUICKQUOTE_TITLE'	=>	'Citation rapide :',
 	'RCE_QUICKQUOTE_DESC'	=>	'Permet d’activer les citations rapides, fonctionnalité disponible en sélectionnant du texte dans un message.',
+	'RCE_QUICKREPLY_TITLE'	=>	'Quick Reply Feature',//translation missing
+	'RCE_QUICKREPLY_DESC'	=>	'Set to no if you do not want enable quick Reply feature.',//translation missing
 	'RCE_SUPSMENT_TITLE'	=>	'Support de l’extension « Simple mentions » :',
 	'RCE_SUPSMENT_DESC'		=>	'Permet d’activer la prise en charge de l’extension « Simple mentions ».<br /><strong>Information :</strong> Au préalable d’activer cette option il est nécessaire d’installer l’extension « <a href="https://www.phpbb.com/customise/db/extension/simple_mentions/">Simple mentions</a> ».',
 	'RCE_HEIGHT_TITLE'		=>	'Hauteur de l’éditeur :',

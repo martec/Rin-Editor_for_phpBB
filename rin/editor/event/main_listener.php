@@ -71,12 +71,23 @@ class main_listener implements EventSubscriberInterface
 			'core.display_custom_bbcodes' => 'initialize_rceditor',
 			'core.viewtopic_modify_page_title' => 'initialize_rceditor',
 			'core.viewtopic_post_rowset_data' => 'initialize_rcequickquote',
+			'core.posting_modify_template_vars' => 'rce_quick_reply',
 			'core.text_formatter_s9e_parser_setup' => 'rce_bbcode_perm',
 			'core.text_formatter_s9e_configure_after' => 'rce_rmv_ignws',
 			'core.text_formatter_s9e_render_after' => 'rce_parse_change',
 		);
 
 		return $Default_Event;
+	}
+
+	public function rce_quick_reply($event)
+	{
+		if ($this->config['RCE_quickreply'] && $this->request->is_ajax() && $event['mode'] == 'quote')
+		{
+			$data = array('quick_reply_msg' => $event['post_data']['post_text']);
+			$json = new \phpbb\json_response();
+			$json->send($data);
+		}
 	}
 
 	public function initialize_rcequickquote($event)
@@ -185,7 +196,11 @@ class main_listener implements EventSubscriberInterface
 			if (((!$this->config['RCE_enb_quick'] || !$this->config['allow_quick_reply']) && $eventname == 'core.viewtopic_modify_page_title') || ($rceurl == 'index.php' || $rceurl == 'app.php' || $rceurl == 'mchat' || $rceurl == 'portal' || $rceurl == 'chat'))
 			{
 				 $rceqenb = false;
-				 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb,));
+				 $this->template->assign_vars(array('RCE_LOAD'	=> $rceqenb));
+				//quick reply feature doesn't require rin editor
+				 $this->template->assign_vars(array('RCE_QUICK_REPLY'	=> $this->config['RCE_quickreply']));
+				//check if user is registered user to quick reply feature
+				 $this->template->assign_vars(array('RCE_AUTH'	=> $this->user->data['is_registered']));
 				 return;
 			}
 		}
@@ -410,6 +425,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_CONTENT_SKIN'				=> $txta,
 			'RCE_AUTH'						=> $this->user->data['is_registered'],
 			'RCE_QUICK_QUOTE'				=> $this->config['RCE_quickquote'],
+			'RCE_QUICK_REPLY'				=> $this->config['RCE_quickreply'],
 			'RCE_SUP_SMENT'					=> $this->config['RCE_supsment'],
 			'RCE_SUP_EXT'					=> $this->config['RCE_supext'],
 			'RCE_DES_NOPOP'					=> $this->config['RCE_desnopop'],

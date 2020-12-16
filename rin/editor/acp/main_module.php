@@ -67,6 +67,7 @@ class main_module
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
 			'RCE_supsment'					=> array('default' => 0,					'validation' => array()),
 			'RCE_supext'					=> array('default' => 0,					'validation' => array()),
+			'RCE_quickreply'				=> array('default' => 1,					'validation' => array()),
 			'RCE_desnopop'					=> array('default' => 0,					'validation' => array()),
 			'RCE_partial'					=> array('default' => 1,					'validation' => array()),
 			'RCE_seltxt'					=> array('default' => 0,					'validation' => array()),

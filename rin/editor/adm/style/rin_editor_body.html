@@ -85,6 +85,12 @@
 				<input type="radio" class="radio" name="RCE_supext" value="0" {% if not RCE_SUPEXT %}checked="checked" {% endif %}/> {{ lang('NO') }}</dd>
 		</dl>
 		<dl>
+			<dt><label for="RCE_quickreply">{{ lang('RCE_QUICKREPLY_TITLE') }}</label><br />
+					<span>{{ lang('RCE_QUICKREPLY_DESC') }}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_quickreply" value="1" {% if RCE_QUICKREPLY %}checked="checked" {% endif %}/> {{ lang('YES') }} &nbsp;
+				<input type="radio" class="radio" name="RCE_quickreply" value="0" {% if not RCE_QUICKREPLY %}checked="checked" {% endif %}/> {{ lang('NO') }}</dd>
+		</dl>
+		<dl>
 			<dt><label for="RCE_desnopop">{{ lang('RCE_DESNOPOP_TITLE') }}</label><br />
 					<span>{{ lang('RCE_DESNOPOP_DESC') }}</span</dt>
 			<dd><input type="radio" class="radio" name="RCE_desnopop" value="1" {% if RCE_DESNOPOP %}checked="checked" {% endif %}/> {{ lang('YES') }} &nbsp;
