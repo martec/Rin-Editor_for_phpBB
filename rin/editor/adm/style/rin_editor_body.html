@@ -79,6 +79,12 @@
 				<input type="radio" class="radio" name="RCE_supsment" value="0" {% if not RCE_SUPSMENT %}checked="checked" {% endif %}/> {{ lang('NO') }}</dd>
 		</dl>
 		<dl>
+			<dt><label for="RCE_acomemoji">{{ lang('RCE_ACOMEMOJI_TITLE') }}</label><br />
+					<span>{{ lang('RCE_ACOMEMOJI_DESC') }}</span</dt>
+			<dd><input type="radio" class="radio" name="RCE_acomemoji" value="1" {% if RCE_ACOMEMOJI %}checked="checked" {% endif %}/> {{ lang('YES') }} &nbsp;
+				<input type="radio" class="radio" name="RCE_acomemoji" value="0" {% if not RCE_ACOMEMOJI %}checked="checked" {% endif %}/> {{ lang('NO') }}</dd>
+		</dl>
+		<dl>
 			<dt><label for="RCE_supext">{{ lang('RCE_SUPEXT_TITLE') }}</label><br />
 					<span>{{ lang('RCE_SUPEXT_DESC') }}</span</dt>
 			<dd><input type="radio" class="radio" name="RCE_supext" value="1" {% if RCE_SUPEXT %}checked="checked" {% endif %}/> {{ lang('YES') }} &nbsp;

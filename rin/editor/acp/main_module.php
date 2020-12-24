@@ -66,6 +66,7 @@ class main_module
 			'RCE_max_height'				=> array('default' => 500,					'validation' => array('num', false, 0, 1000)),
 			'RCE_quickquote'				=> array('default' => 1,					'validation' => array()),
 			'RCE_supsment'					=> array('default' => 0,					'validation' => array()),
+			'RCE_acomemoji'					=> array('default' => 1,					'validation' => array()),
 			'RCE_supext'					=> array('default' => 0,					'validation' => array()),
 			'RCE_quickreply'				=> array('default' => 1,					'validation' => array()),
 			'RCE_desnopop'					=> array('default' => 0,					'validation' => array()),

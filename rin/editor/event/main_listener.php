@@ -427,6 +427,7 @@ class main_listener implements EventSubscriberInterface
 			'RCE_QUICK_QUOTE'				=> $this->config['RCE_quickquote'],
 			'RCE_QUICK_REPLY'				=> $this->config['RCE_quickreply'],
 			'RCE_SUP_SMENT'					=> $this->config['RCE_supsment'],
+			'RCE_AUCOMP_EMOJI'				=> $this->config['RCE_acomemoji'],
 			'RCE_SUP_EXT'					=> $this->config['RCE_supext'],
 			'RCE_DES_NOPOP'					=> $this->config['RCE_desnopop'],
 			'RCE_PARTIAL'					=> $this->config['RCE_partial'],
