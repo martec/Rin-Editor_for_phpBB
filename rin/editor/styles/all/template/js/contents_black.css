@@ -60,7 +60,7 @@ blockquote:before:-moz-only-whitespace {
 	display: none;
 }
 
-blockquote[data-cite='codeblock']:before, blockquote[data-cite='phpcodeblock']:before {
+pre:before {
 	text-transform: uppercase;
 	font-weight: bold;
 	content: 'Code:';
@@ -73,12 +73,7 @@ blockquote[data-cite='codeblock']:before, blockquote[data-cite='phpcodeblock']:b
 	font-size: 1em;
 }
 
-blockquote[data-cite='phpcodeblock']:before {
-	content: 'PHP Code:' !important;
-	color: #333 !important;
-}
-
-blockquote[data-cite='codeblock'], blockquote[data-cite='phpcodeblock'] {
+pre {
 	position: relative;
 	background-color: #171717 !important;
 	margin: 1em 0 1.2em 0;
@@ -86,13 +81,11 @@ blockquote[data-cite='codeblock'], blockquote[data-cite='phpcodeblock'] {
 	display: block;
 	color: #2E8B57;
 	overflow: auto;
+	padding: 5px;
 	font: 0.9em Monaco, "Andale Mono","Courier New", Courier, monospace;
 	line-height: 1.3em;
-	background-image: none !important;
-}
-
-blockquote[data-cite='phpcodeblock'] {
-	color: #0000BB;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 a
