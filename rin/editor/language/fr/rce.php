@@ -109,5 +109,5 @@ $lang = array_merge($lang, array(
 	'RCE_TXTA_TITLE'		=>	'Couleur de la zone de texte pour le style ',
 	'RCE_TXTA_DESC'			=>	'Permet de définir la zone de texte en noir.',
 	'RCE_BUT_TITLE'			=>	'Emplacement des icones pour les BBCodes personnalisés :',
-	'RCE_BUT_DESC'			=>	'./ext/rin/editor/styles/all/template/js/icons/<br />Dimensions : 16 x 16 px<br />Nom du fichier : Identique au nom du BBcode<br />Extension du fichier: *.png',
+	'RCE_BUT_DESC'			=>	'./ext/rin/editor/styles/all/template/js/skins/[your_skin]/icons<br />Dimensions : 16 x 16 px<br />Nom du fichier : Identique au nom du BBcode<br />Extension du fichier: *.png',//translation missing
 ));
