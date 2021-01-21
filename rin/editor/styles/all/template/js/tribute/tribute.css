@@ -8,6 +8,7 @@
   overflow: auto;
   display: block;
   z-index: 999999;
+  font-size: 13px !important;
 }
 .tribute-container ul {
   margin: 0;
