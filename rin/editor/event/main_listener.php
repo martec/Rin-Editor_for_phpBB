@@ -84,7 +84,11 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($this->config['RCE_quickreply'] && $this->request->is_ajax() && $event['mode'] == 'quote')
 		{
-			$data = array('quick_reply_msg' => $event['post_data']['post_text']);
+			$post_data = $event['post_data'];
+			$post_data['post_text'] = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $post_data['post_text']);
+			$post_data['post_text'] = preg_replace('#\[smention u=([0-9]+)\](.*?)\[\/smention\]#uis', '@\\2', $post_data['post_text']);
+			$post_data['post_text'] = preg_replace('#\[smention g=([0-9]+)\](.*?)\[\/smention\]#uis', '@\\2', $post_data['post_text']);
+			$data = array('quick_reply_msg' => $post_data['post_text']);
 			$json = new \phpbb\json_response();
 			$json->send($data);
 		}
